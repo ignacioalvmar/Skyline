@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<!---
+Each screen is 1366x768 (the tablets used)
+Original height for resized display area: 822x450
+0.45 mag fills my desk screen
+0.3 is smaller
+-->
+
+<head>
+    <meta charset="utf-8" />
+    <title>Buck Simulator</title>
+    <style>
+    body {
+        background: #bbb;
+    }
+    #container {
+        background: #aaa;
+        --totalWidth: calc(2740px + 1366px);
+        width: calc(4106px * 0.3);
+        --totalHeight: calc(800px + 1366px);
+        height: calc(2266px * 0.3);
+        overflow: hidden;
+    }
+    #fullsize {
+        width: 4098px;
+    }
+    #HMI {
+        -moz-transform: scale(0.3);
+        -moz-transform-origin: 0 0;
+        -o-transform: scale(0.3);
+        -o-transform-origin: 0 0;
+        -webkit-transform: scale(0.3);
+        -webkit-transform-origin: 0 0;
+    }
+    #upper {
+        width: 2740px;
+        height: 800px;
+    }
+    #lower {
+        margin-left: 1666px;
+    }
+    #passenger {
+        margin-top: 200px;
+        float: right;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="fullsize">
+            <div id="HMI">
+                <div id="upper">
+                    <iframe src="http://localhost:3000/hud" border="0" scrolling="no" width="1366" height="768" frameBorder="0">
+                    </iframe>
+                    <iframe src="http://localhost:3000/info_panel" border="0" scrolling="no" width="1366" height="384" frameBorder="0">
+                    </iframe>
+                </div>
+                <div id="lower">
+                    <span id=center>
+                        <iframe src="http://localhost:3000/center_console" border="0" scrolling="no" width="768" height="1366" frameBorder="0">
+                        </iframe>
+                    </span>
+                    <div id=passenger>
+                        <iframe src="http://localhost:3000/passenger" border="0" scrolling="no" width="1366" height="768" frameBorder="0">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "intel-simple-client",
+  "description": "An HTML/JS/CSS app",
+  "version": "0.0.1",
+  "private": true,
+  "author": "John Doe",
+  "scripts": {
+    "start": "lineman run",
+    "test": "lineman spec-ci"
+  },
+  "dependencies": {
+    "lineman": "^0.34.3",
+    "lineman-react": "0.0.1",
+    "grunt-react" : "0.10.0"
+  }
+}

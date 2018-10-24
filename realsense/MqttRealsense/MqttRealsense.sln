@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MqttRecorder", "MqttRecorder\MqttRecorder.csproj", "{480CB6EC-021B-4275-AF7B-C763533D7F81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "MqttUtils\Utils.csproj", "{6DEC3EDF-E1E8-4EEA-97E4-E5080CE3E72E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MqttRawStreams", "MqttRawStreams\MqttRawStreams.csproj", "{C42F9346-5D29-46D0-AE79-8C05365A908D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{480CB6EC-021B-4275-AF7B-C763533D7F81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{480CB6EC-021B-4275-AF7B-C763533D7F81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{480CB6EC-021B-4275-AF7B-C763533D7F81}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{480CB6EC-021B-4275-AF7B-C763533D7F81}.Debug|x64.Build.0 = Debug|Any CPU
+		{480CB6EC-021B-4275-AF7B-C763533D7F81}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{480CB6EC-021B-4275-AF7B-C763533D7F81}.Debug|x86.Build.0 = Debug|Any CPU
+		{480CB6EC-021B-4275-AF7B-C763533D7F81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{480CB6EC-021B-4275-AF7B-C763533D7F81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{480CB6EC-021B-4275-AF7B-C763533D7F81}.Release|x64.ActiveCfg = Release|Any CPU
+		{480CB6EC-021B-4275-AF7B-C763533D7F81}.Release|x64.Build.0 = Release|Any CPU
+		{480CB6EC-021B-4275-AF7B-C763533D7F81}.Release|x86.ActiveCfg = Release|Any CPU
+		{480CB6EC-021B-4275-AF7B-C763533D7F81}.Release|x86.Build.0 = Release|Any CPU
+		{6DEC3EDF-E1E8-4EEA-97E4-E5080CE3E72E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DEC3EDF-E1E8-4EEA-97E4-E5080CE3E72E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DEC3EDF-E1E8-4EEA-97E4-E5080CE3E72E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6DEC3EDF-E1E8-4EEA-97E4-E5080CE3E72E}.Debug|x64.Build.0 = Debug|Any CPU
+		{6DEC3EDF-E1E8-4EEA-97E4-E5080CE3E72E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6DEC3EDF-E1E8-4EEA-97E4-E5080CE3E72E}.Debug|x86.Build.0 = Debug|Any CPU
+		{6DEC3EDF-E1E8-4EEA-97E4-E5080CE3E72E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DEC3EDF-E1E8-4EEA-97E4-E5080CE3E72E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DEC3EDF-E1E8-4EEA-97E4-E5080CE3E72E}.Release|x64.ActiveCfg = Release|Any CPU
+		{6DEC3EDF-E1E8-4EEA-97E4-E5080CE3E72E}.Release|x64.Build.0 = Release|Any CPU
+		{6DEC3EDF-E1E8-4EEA-97E4-E5080CE3E72E}.Release|x86.ActiveCfg = Release|Any CPU
+		{6DEC3EDF-E1E8-4EEA-97E4-E5080CE3E72E}.Release|x86.Build.0 = Release|Any CPU
+		{C42F9346-5D29-46D0-AE79-8C05365A908D}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{C42F9346-5D29-46D0-AE79-8C05365A908D}.Debug|x64.ActiveCfg = Debug|x64
+		{C42F9346-5D29-46D0-AE79-8C05365A908D}.Debug|x64.Build.0 = Debug|x64
+		{C42F9346-5D29-46D0-AE79-8C05365A908D}.Debug|x86.ActiveCfg = Debug|x86
+		{C42F9346-5D29-46D0-AE79-8C05365A908D}.Debug|x86.Build.0 = Debug|x86
+		{C42F9346-5D29-46D0-AE79-8C05365A908D}.Release|Any CPU.ActiveCfg = Release|x86
+		{C42F9346-5D29-46D0-AE79-8C05365A908D}.Release|x64.ActiveCfg = Release|x64
+		{C42F9346-5D29-46D0-AE79-8C05365A908D}.Release|x64.Build.0 = Release|x64
+		{C42F9346-5D29-46D0-AE79-8C05365A908D}.Release|x86.ActiveCfg = Release|x86
+		{C42F9346-5D29-46D0-AE79-8C05365A908D}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

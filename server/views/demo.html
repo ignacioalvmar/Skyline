@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>IVI Demo</title>
+
+<script type="text/javascript" src="/javascripts/jquery.2.0.3.min.js"></script>
+<script type="text/javascript" src="/javascripts/socket.io.1.7.3.min.js"></script>
+
+<script type="text/javascript">var sock = io.connect('http://' + window.location.host);</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    var carServicesStatusTopic = 'car/services/status';
+    sock.emit('subscribe', { name: carServicesStatusTopic });
+    sock.emit('subscribe', { name: 'Ignition' });
+    debugOut('Page initialized');
+
+    function highlight_state(state) {
+        var all = $(".clickable");
+        all.removeClass("highlight");
+
+        var target = $("[funct=" + state + "]");
+        target.addClass("highlight");
+    }
+
+    $('.clickable').on('click', function() {
+        var funct = $(this).attr('funct');
+        if (funct) {
+            console.log("dispatching message:", funct);
+            sendMQTT("demo." + funct, {});
+            highlight_state(funct);
+        }
+    });
+
+    sock.on(carServicesStatusTopic, function(data) {
+        debugOut('serviceMQTT: ' + data);
+    });
+
+    sock.on('Ignition', function(data) {
+        debugOut('Received Ignition');
+        setInitialState();
+    });
+});
+
+// Send the service state to the specified service ('local', 'remote')
+function sendServiceState(service, state) {
+    var topic = '';
+    var msg = {};
+    msg['object'] = 'service';
+    msg['event'] = 'service';
+    msg['state'] = state;   // 'Available', 'Shutdown', 'Intermittent'
+
+    if (service == 'local')
+        topic = 'car/service/payment';
+    else
+        topic = 'service/payment';
+
+    sendMQTT(topic, msg);
+}
+
+function setGlobalState(key, value) {
+    var msg = {};
+    msg[key] = value;
+    sendMQTT('car/state/set', msg);
+}
+
+function sendMQTT(topic, msg) {
+    var event = {};
+    event['eventName'] = topic;
+    event['message'] = msg;
+    sock.emit('consoleEvent', event);
+}
+
+function debugOut(msg) {
+    $('#outputBlock').append('<div>' + msg + '</div>');
+}
+
+</script>
+<style type="text/css">
+.button {
+    border: none;
+    cursor: pointer;
+    font-family: "Lato_Regular";
+    font-size: 30px;
+    padding: 7px;
+    margin: 10px;
+    width: 340px;
+    color: #ffffff;
+    background: #036;
+    height: 40px;
+    border-radius: 6px;
+    -webkit-text-shadow: 1px 1px 3px #919395;
+    text-shadow: 1px 1px 3px #919395;
+}
+
+.highlight {
+    background-color: #feed00;
+}
+
+.pull-left {
+    float:left;
+}
+
+.pull-right {
+    float:right;
+}
+
+.clearfix {
+    clear:both;
+}
+
+</style>
+</head>
+<body class="bodyClass">
+<ul>
+    <li class="button clickable" funct="scenario_start"> Initialize Scenario </li>
+    <li>
+        <h3>1.0 Out of Car</h3>
+        <ul class="pull-left">
+            <li class="button clickable" funct="mobile_notification"> Notification </li>
+            <li class="button clickable" funct="mobile_app_settings"> Mobile App Settings </li>
+        </ul>
+        <p class="pull-left">Sample Text</p>
+        <div class="clearfix"></div>
+    </li>
+
+    <li>
+        <h3>2.0 Enter Car</h3>
+        <ul class="pull-left">
+            <li class="button clickable" funct="driver_auth"> Driver Auth/Comfort </li>
+            <li class="button clickable" funct="passenger_auth"> Passenger Auth/Comfort </li>
+            <li class="button clickable" funct="item_checklist"> Item Checklist </li>
+            <li class="button clickable" funct="missing_item_beacon"> Missing Item Beacon </li>
+            <li class="button clickable" funct="missing_item_beacon_map"> Missing Item Beacon Map </li>
+        </ul>
+        <p class="pull-left">Sample Text</p>
+        <div class="clearfix"></div>
+    </li>
+
+    <li>
+        <h3>3.0 Trip Settings</h3>
+        <ul class="pull-left">
+            <li class="button clickable" funct="navigation"> Navigation/Route </li>
+            <li class="button clickable" funct="shared_media"> Shared Media </li>
+            <li class="button clickable" funct="shared_media_2"> Shared Media 2 </li>
+        </ul>
+        <p class="pull-left">Sample Text</p>
+        <div class="clearfix"></div>
+    </li>
+
+    <li>
+        <h3>4.0 Passenger Drop-Off</h3>
+        <ul class="pull-left">
+            <li class="button clickable" funct="privacy_media_settings"> Privacy/Media Settings </li>
+        </ul>
+        <p class="pull-left">Sample Text</p>
+        <div class="clearfix"></div>
+    </li>
+
+    <li>
+        <h3>5.0 Urban Cruise Control</h3>
+        <ul class="pull-left">
+            <li class="button clickable" funct="reroute"> Re-Route </li>
+        </ul>
+        <p class="pull-left">Sample Text</p>
+        <div class="clearfix"></div>
+    </li>
+
+    <li>
+        <h3>6.0 Ambulance Detection</h3>
+        <ul class="pull-left">
+            <li class="button clickable" funct="notification_and_media_mute"> Notification/Media Mute </li>
+            <li class="button clickable" funct="safe_road_exit_plan"> Safe Road-Exit Plan </li>
+        </ul>
+        <p class="pull-left">Sample Text</p>
+        <div class="clearfix"></div>
+    </li>
+
+    <li>
+        <h3>7.0 Calendar Event Change</h3>
+        <ul class="pull-left">
+            <li class="button clickable" funct="incoming_call"> Incoming Call </li>
+            <li class="button clickable" funct="calendar_recommendation"> Calendar Recommendation </li>
+            <li class="button clickable" funct="confirmation"> Confirmation </li>
+        </ul>
+        <p class="pull-left">Sample Text</p>
+        <div class="clearfix"></div>
+    </li>
+
+    <li>
+        <h3>8.0 Destination</h3>
+        <ul class="pull-left">
+            <li class="button clickable" funct="attendee_location_info"> Attendee/Location Info </li>
+            <li class="button clickable" funct="push_to_smartphone"> Push to Smartphone </li>
+        </ul>
+        <p class="pull-left">Sample Text</p>
+        <div class="clearfix"></div>
+    </li>
+
+    <li>
+        <h3>9.0 Out of Car</h3>
+        <ul class="pull-left">
+            <li class="button clickable" funct="mobile_attendee_location_info"> Mobile Info </li>
+        </ul>
+        <p class="pull-left">Sample Text</p>
+        <div class="clearfix"></div>
+    </li>
+</ul>
+<div id='outputBlock'>
+</div>
+</body>
+</html>

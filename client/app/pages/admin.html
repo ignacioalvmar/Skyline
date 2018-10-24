@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>IVI Demo</title>
+
+    <script type="text/javascript" src="/js/app.js"></script>
+
+    <script type="text/javascript">
+    var sock = io.connect('http://' + window.location.host);
+    </script>
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var carServicesStatusTopic = 'car/services/status';
+        sock.emit('subscribe', {
+            name: carServicesStatusTopic
+        });
+        sock.emit('subscribe', {
+            name: 'Ignition'
+        });
+
+        var reverseStateLookup = {};
+        _(StateEvents).forEach(function(topic, key) {
+            reverseStateLookup[topic] = key;
+
+            // bind back to all dispatched topics to handle correct highlighting if that event
+            // is dispatched from a different source (i.e. keep highlight in sync with timed transitions)
+            sock.emit("subscribe", {
+                name: "demo." + topic
+            });
+
+            sock.on("demo." + topic, function() {
+                highlight_state(topic);
+            });
+        });
+
+        function highlight_state(topic) {
+            var all = $(".clickable");
+            all.removeClass("highlight");
+            var state = reverseStateLookup[topic];
+            var target = $("[funct=" + state + "]");
+
+            target.addClass("highlight");
+        }
+
+        $('.clickable').on('click', function() {
+            var funct = $(this).attr('funct');
+            var topic = StateEvents[funct]
+            if (funct) {
+                console.log("dispatching message:", topic);
+                sendMQTT("demo." + topic, {});
+            }
+        });
+
+        sock.on(carServicesStatusTopic, function(data) {
+
+        });
+
+        sock.on('Ignition', function(data) {
+            setInitialState();
+        });
+    });
+
+    // Send the service state to the specified service ('local', 'remote')
+    function sendServiceState(service, state) {
+        var topic = '';
+        var msg = {};
+        msg['object'] = 'service';
+        msg['event'] = 'service';
+        msg['state'] = state; // 'Available', 'Shutdown', 'Intermittent'
+
+        if (service == 'local')
+            topic = 'car/service/payment';
+        else
+            topic = 'service/payment';
+
+        sendMQTT(topic, msg);
+    }
+
+    function setGlobalState(key, value) {
+        var msg = {};
+        msg[key] = value;
+        sendMQTT('car/state/set', msg);
+    }
+
+    function sendMQTT(topic, msg) {
+        var event = {};
+        event['eventName'] = topic;
+        event['message'] = msg;
+        sock.emit('consoleEvent', event);
+    }
+    </script>
+    <style type="text/css">
+    .button {
+        border: none;
+        cursor: pointer;
+        font-family: Helvetica, sans-serif;
+        font-size: 20px;
+        margin: 0 0 10px 0;
+        padding: 10px;
+        width: 250px;
+        color: #ffffff;
+        background: rgba(52,136,197,1);
+        border-radius: 6px;
+    }
+    h3 {
+        font-family: Helvetica, sans-serif;
+        margin: 1em 0;
+    }
+    .highlight {
+        background-color: rgba(14,34,44,1);
+    }
+    .pull-left {
+        float: left;
+    }
+    .pull-right {
+        float: right;
+    }
+    .clearfix {
+        clear: both;
+    }
+    ul,li {
+        margin: 0;
+        padding: 0;
+    }
+    ul {
+        margin-bottom: 50px;
+    }
+    ul li ul {
+        margin-bottom: 0;
+    }
+    </style>
+</head>
+
+<body class="bodyClass">
+    <ul>
+        <li class="button clickable" funct="INIT"> Initialize Scenario </li>
+        <li>
+            <h3>1.0 Out of Car</h3>
+            <ul class="pull-left">
+                <li class="button clickable" funct="TO_STATE_10"> Notification </li>
+                <li class="button clickable" funct="TO_STATE_11"> Traffic View </li>
+                <li class="button clickable" funct="TO_STATE_12"> Weather View </li>
+                <li class="button clickable" funct="TO_STATE_13"> Calendar View </li>
+            </ul>
+            <!-- <p class="pull-left">Sample Text</p> -->
+            <div class="clearfix"></div>
+        </li>
+
+        <li>
+            <h3>2.0 Enter Car</h3>
+            <ul class="pull-left">
+                <li class="button clickable" funct="TO_STATE_20"> Driver Auth/Comfort </li>
+                <li class="button clickable" funct="TO_STATE_21"> Passenger Auth/Comfort </li>
+                <li class="button clickable" funct="TO_STATE_22"> Item Checklist </li>
+                <li class="button clickable" funct="TO_STATE_23"> Missing Item Beacon </li>
+                <li class="button clickable" funct="TO_STATE_24"> Pass Dest Added </li>
+                <li class="button clickable" funct="TO_STATE_25"> Start Car</li>
+<!--                 <li class="button clickable" funct="TO_STATE_26"> 2.6 - Dinner Load</li>
+                <li class="button clickable" funct="TO_STATE_27"> 2.7 - Dinner Options</li>
+                <li class="button clickable" funct="TO_STATE_28"> 2.8 - Dinner Match</li> -->
+            </ul>
+            <!-- <p class="pull-left">Sample Text</p> -->
+            <div class="clearfix"></div>
+        </li>
+
+        <li>
+            <h3>3.0 Trip Settings</h3>
+            <ul class="pull-left">
+                <!-- <li class="button clickable" funct="TO_STATE_30"> Navigation/Route </li> -->
+                <li class="button clickable" funct="TO_STATE_31"> Shared Media </li>
+                <li class="button clickable" funct="TO_STATE_32"> Shared Media 2 </li>
+            </ul>
+            <!-- <p class="pull-left">Sample Text</p> -->
+            <div class="clearfix"></div>
+        </li>
+
+        <li>
+            <h3>Dinner Reservations</h3>
+            <ul class="pull-left">
+                <li class="button clickable" funct="TO_STATE_26aa"> Begin Conversation</li>   
+                <li class="button clickable" funct="TO_STATE_26a"> Dinner Listening</li>            
+                <li class="button clickable" funct="TO_STATE_26"> Dinner Load</li>
+                <li class="button clickable" funct="TO_STATE_27"> Dinner Options</li>
+                <li class="button clickable" funct="TO_STATE_28"> Dinner Match</li>
+                <li class="button clickable" funct="TO_STATE_29"> End Dinner Flow</li>
+            </ul>
+            <!-- <p class="pull-left">Sample Text</p> -->
+            <div class="clearfix"></div>
+        </li>
+
+        <li>
+            <h3>4.0 Passenger Drop-Off</h3>
+            <ul class="pull-left">
+                <li class="button clickable" funct="TO_STATE_40"> Privacy/Media Settings </li>
+                <li class="button clickable" funct="TO_STATE_41"> Charge Phone </li>
+                <li class="button clickable" funct="TO_STATE_42"> Switch Media </li>
+            </ul>
+            <!-- <p class="pull-left">Sample Text</p> -->
+            <div class="clearfix"></div>
+        </li>
+
+        <li>
+            <h3>5.0 Urban Cruise Control</h3>
+            <ul class="pull-left">
+                <li class="button clickable" funct="TO_STATE_50"> Re-Route </li>
+            </ul>
+            <!-- <p class="pull-left">Sample Text</p> -->
+            <div class="clearfix"></div>
+        </li>
+
+        <li>
+            <h3>6.0 Ambulance Detection</h3>
+            <ul class="pull-left">
+                <li class="button clickable" funct="TO_STATE_60"> Notification/Media Mute </li>
+                <li class="button clickable" funct="TO_STATE_63"> Safe Road-Exit Plan </li>
+            </ul>
+            <!-- <p class="pull-left">Sample Text</p> -->
+            <div class="clearfix"></div>
+        </li>
+
+        <li>
+            <h3>7.0 Reservation Confirmation</h3>
+            <ul class="pull-left">
+                <li class="button clickable" funct="TO_STATE_70"> Incoming Call </li>
+<!--                 <li class="button clickable" funct="TO_STATE_70b"> Answer Call </li>
+                <li class="button clickable" funct="TO_STATE_71"> Calendar Recommendation </li>
+                <li class="button clickable" funct="TO_STATE_72"> Hang Up </li> -->
+                <li class="button clickable" funct="TO_STATE_73a"> Begin Conversation</li>                
+                <li class="button clickable" funct="TO_STATE_73"> Dinner Reservation </li> 
+                <li class="button clickable" funct="TO_STATE_74"> Reservation Lookup </li> 
+                <li class="button clickable" funct="TO_STATE_75"> Reservation Confirmation </li> 
+                <li class="button clickable" funct="TO_STATE_76"> Hang Up </li>
+            </ul>
+            <!-- <p class="pull-left">Sample Text</p> -->
+            <div class="clearfix"></div>
+        </li>
+
+        <li>
+            <h3>8.0 Destination</h3>
+            <ul class="pull-left">
+                <li class="button clickable" funct="TO_STATE_80"> Attendee/Location Info </li>
+                <li class="button clickable" funct="TO_STATE_81"> Accelerate Timer </li>
+                <li class="button clickable" funct="TO_STATE_81"> Push to Smartphone </li>
+            </ul>
+            <!-- <p class="pull-left">Sample Text</p> -->
+            <div class="clearfix"></div>
+        </li>
+
+        <li>
+            <h3>9.0 Out of Car</h3>
+            <ul class="pull-left">
+                <li class="button clickable" funct="TO_STATE_90"> Mobile Info </li>
+            </ul>
+            <!-- <p class="pull-left">Sample Text</p> -->
+            <div class="clearfix"></div>
+        </li>
+    </ul>
+</body>
+
+</html>

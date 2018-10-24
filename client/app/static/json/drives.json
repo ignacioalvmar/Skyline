@@ -1,0 +1,219 @@
+{
+  "Scenarios": [
+    {
+      "Name": "Runaround",
+      "Triggers": [
+        {
+          "name": "Engage Autopilot",
+          "id": "engage_autopilot",
+          "message": "EnableForcedAutopilot"
+        },
+        {
+          "name": "Parking Spot Stop",
+          "id": "parking_spot_stop",
+          "message": "BeginShutdown"
+        },
+        {
+          "name": "Phone Call",
+          "id": "phone_call",
+          "message": ""
+        },
+        {
+          "name": "Parking Selected",
+          "id": "parking_selected",
+          "message": ""
+        },
+        {
+          "name": "Speed Limit Change",
+          "id": "speed_limit_change",
+          "message": ""
+        },
+        {
+          "name": "Passenger Sees Something",
+          "id": "passenger_sees_something",
+          "message": ""
+        },
+        {
+          "name": "Ignore Reroute",
+          "id": "reroute_ignore",
+          "message": ""
+        },
+        {
+          "name": "Parking Notification",
+          "id": "notify_parking",
+          "message": ""
+        },
+        {
+          "name": "Bus Notification",
+          "id": "bus_notification",
+          "message": "StartTheBusMoving"
+        },
+        {
+          "name": "Auto Parking Ready",
+          "id": "auto_parking_ready",
+          "message": ""
+        },
+        {
+          "name": "Stop for Bus (auto stop)",
+          "id": "stop_for_bus",
+          "message": "EnableForcedThrottleAutopilot"
+        },
+        {
+          "name": "Stop For Bus",
+          "id": "stop_for_bus",
+          "message": "LetTheBusGo"
+        }
+      ]
+    },
+    {
+      "Name": "Intel Simple Demo",
+      "Triggers": [
+        {
+          "name": "Parking Spot Stop",
+          "id": "parking_spot_stop",
+          "message": "BeginShutdown"
+        },
+        {
+          "name": "Parking Notification",
+          "id": "notify_parking",
+          "message": ""
+        },
+        {
+          "name": "Engage Autopilot",
+          "id": "autopilot_engage",
+          "message": "EnableForcedAutopilot"
+        },
+        {
+          "name": "Parking Selected",
+          "id": "parking_selected",
+          "message": ""
+        },
+        {
+          "name": "Auto Parking Ready",
+          "id": "auto_parking_ready",
+          "message": ""
+        }
+      ]
+    },
+    {
+      "Name": "Commuter",
+      "Triggers": [
+        {
+          "name": "Traffic Delay",
+          "id": "traffic_delay",
+          "message": ""
+        },
+        {
+          "name": "Parking Notification",
+          "id": "notify_parking",
+          "message": ""
+        },
+        {
+          "name": "Parking Selected",
+          "id": "parking_selected",
+          "message": ""
+        },
+        {
+          "name": "Parking Spot Stop",
+          "id": "parking_spot_stop",
+          "message": "BeginShutdown"
+        },
+        {
+          "name": "Off Freeway",
+          "id": "off_freeway",
+          "message": ""
+        },
+        {
+          "name": "Autopilot Available",
+          "id": "autopilot_available",
+          "message": ""
+        },
+        {
+          "name": "Long Light",
+          "id": "long_light",
+          "message": ""
+        },
+        {
+          "name": "Auto Parking Ready",
+          "id": "auto_parking_ready",
+          "message": ""
+        },
+        {
+          "name": "Close Email",
+          "id": "close_email",
+          "message": ""
+        },
+        {
+          "name": "Autopilot Prep Off",
+          "id": "autopilot_off_prep",
+          "message": ""
+        },
+        {
+          "name": "Engage Autopilot",
+          "id": "autopilot_engage",
+          "message": "EnableForcedAutopilot"
+        },
+        {
+          "name": "Incoming Email",
+          "id": "incoming_email",
+          "message": ""
+        },
+        {
+          "name": "Enable Long Light",
+          "id": "long_light_enable",
+          "message": "TriggerLongRedCycle"
+        }
+      ]
+    },
+    {
+      "Name": "Car Share",
+      "Triggers": [
+        {
+          "name": "Parking Spot Stop",
+          "id": "parking_spot_stop",
+          "message": "BeginShutdown"
+        },
+        {
+          "name": "Parking Notification",
+          "id": "notify_parking",
+          "message": ""
+        },
+        {
+          "name": "Engage Autopilot",
+          "id": "autopilot_engage",
+          "message": "EnableForcedAutopilot"
+        },
+        {
+          "name": "Parking Selected",
+          "id": "parking_selected",
+          "message": ""
+        },
+        {
+          "name": "Auto Parking Ready",
+          "id": "auto_parking_ready",
+          "message": ""
+        }
+      ]
+    },
+    {
+      "Name": "Demo Drive",
+      "Triggers": [
+        {
+          "name": "Auto Parking Ready",
+          "id": "auto_parking_ready",
+          "message": ""
+        },
+        {
+          "name": "Engage Autopilot",
+          "id": "autopilot_engage",
+          "message": "EnableForcedAutopilot"
+        },
+        {
+          "name": "ParkingSpotStop",
+          "id": "parking_spot_stop",
+          "message": "BeginShutdown"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,278 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Taxi Scenario Connectivity Control</title>
+
+<script type="text/javascript" src="/javascripts/jquery.2.0.3.min.js"></script>
+<script type="text/javascript" src="/javascripts/socket.io.1.7.3.min.js"></script>
+
+<script type="text/javascript">var sock = io.connect('http://' + window.location.host);</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    var carServicesStatusTopic = 'car/services/status';
+    sock.emit('subscribe', { name: carServicesStatusTopic });
+    sock.emit('subscribe', { name: 'Ignition' });
+    debugOut('Page initialized');
+    
+    $('.clickable').on('click', function() {
+        var funct = $(this).attr('funct');
+        if (funct) {
+            switch (funct) {
+                case 'refreshHMI':
+                    setResetHMI();
+                    break;
+                case 'scenarioStart':
+                    setScenarioStart();
+                    break;
+                case 'auth':
+                    setAuthenticatedState();
+                    break;
+                case 'ccinit':
+                    setResetCCState();
+                    break;
+                case 'interm':
+                    setIntermittentConnectivity();
+                    break;
+                case 'getin':
+                    setPassengerEnter();
+                    break;
+                case 'getout':
+                    setPassengerExit();
+                    break;
+                case 'connect':
+                    setConnected();
+                    break;
+                case 'pay':
+                    doPayTest();
+                    break;
+                default:
+                    break;
+            }
+        }
+    });
+
+    sock.on(carServicesStatusTopic, function(data) {
+        debugOut('serviceMQTT: ' + data);
+    });
+
+    sock.on('Ignition', function(data) {
+        debugOut('Received Ignition');
+        setInitialState();
+    });
+
+});
+
+// Reset the user interface
+function setResetHMI() {
+    sendMQTT('refresh_console', {});
+}
+
+// Set scenario Start state
+function setScenarioStart() {
+    sendMQTT('scenario_start', {});
+    window.setTimeout(function() {
+        sendServiceState('remote', 'Available');
+    }, 2000);
+}
+
+// Set authenticated
+function setAuthenticatedState() {
+    sendMQTT('ImmobKey', {});
+}
+
+// Initial state:
+// Called when we hear 'Ignition'
+function setInitialState() {
+    debugOut('Connectivity available');
+    debugOut('Remote credit-card processing available');
+    window.setTimeout(function() {
+        setGlobalState('CardProcessor', 'remote');
+        sendServiceState('remote', 'Available');
+        sendServiceState('local', 'Shutdown');
+    }, 5000 + randomInterval(500, 1000));
+}
+
+//  Called to reset the demo to the connected CC processing state
+//  Clear output text
+//  Enable remote credit card processing
+//  Disable local credit card processing
+//  UI goes to driving (after ignition)
+function setResetCCState() {
+    $('#outputBlock').empty();
+    sendMQTT('Ignition', {});
+}
+
+// Intermittant connectivity:
+//  Make remote CCP intermitant
+//  Make local CCP intermittant (loading in process)
+//  Make remote CCP offline
+//  Make local CCP online
+function setIntermittentConnectivity() {
+    debugOut('Intermittent connectivity');
+    sendMQTT('car/connectivity', 'Intermittent');
+    sendServiceState('remote', 'Intermittent');
+    window.setTimeout(function() {
+        debugOut('Loading local credit-card processing service');
+        sendServiceState('local', 'Intermittent');
+        window.setTimeout(function() {
+            debugOut('Remote credit card processing disconnected');
+            sendServiceState('remote', 'Shutdown');
+            sendServiceState('local', 'Available');
+            debugOut('Credit card processing local');
+            setGlobalState('CardProcessor', 'local');
+            sendMQTT('car/connectivity', 'Disconnected');
+        }, 2000 + randomInterval(200, 1000));
+    }, 2000 + randomInterval(200, 1000));
+}
+
+// Passenger enters car:
+//  Display passenger selection on passenger screen
+function setPassengerEnter() {
+    debugOut('PassengerEntry');
+    sendMQTT('passenger_enters', {});
+}
+
+// Passenger exits car:
+//  Display passenger selection on passenger screen
+//  Passenger selection shows local CCP processing
+//      (Should have state so both local and remote work?)
+function setPassengerExit() {
+    debugOut('PassengerExit');
+    sendMQTT('passenger_payment', {});
+}
+
+// Connectivity restored:
+//  Make remote CCP online
+//  Make local CCP offline
+function setConnected() {
+    debugOut('Connectivity restored');
+    debugOut('Remote credit-card processing available');
+    sendMQTT('car/connectivity', 'Connected');
+    sendServiceState('remote', 'Available');
+    setGlobalState('CardProcessor', 'remote');
+    window.setTimeout(function() {
+        debugOut('Local credit-card processing disconnecting');
+        sendServiceState('local', 'Intermittent');
+        window.setTimeout(function() {
+            sendServiceState('local', 'Shutdown');
+        }, 2000 + randomInterval(500, 1000));
+    }, 2000 + randomInterval(500, 1000));
+}
+
+// Send the service state to the specified service ('local', 'remote')
+function sendServiceState(service, state) {
+    var topic = '';
+    var msg = {};
+    msg['object'] = 'service';
+    msg['event'] = 'service';
+    msg['state'] = state;   // 'Available', 'Shutdown', 'Intermittent'
+
+    if (service == 'local')
+        topic = 'car/service/payment';
+    else
+        topic = 'service/payment';
+
+    sendMQTT(topic, msg);
+}
+
+function setGlobalState(key, value) {
+    var msg = {};
+    msg[key] = value;
+    sendMQTT('car/state/set', msg);
+}
+
+function sendMQTT(topic, msg) {
+    var event = {};
+    event['eventName'] = topic;
+    event['message'] = msg;
+    sock.emit('consoleEvent', event);
+}
+
+function randomInterval(min, max) {
+    return Math.floor(Math.random() * (max-min+1)+min);
+}
+
+function debugOut(msg) {
+    $('#outputBlock').append('<div>' + msg + '</div>');
+}
+
+function doPayTest() {
+    var amount = "26.20";
+    var cardToken = 'tok_15LZtu2eZvKYlo2C6XkE0s2S';
+    debugOut('doPayTest: amount=' + amount + ', token=' + cardToken + ', URL=' + getServiceURL());
+    var req = $.ajax({
+       type: 'POST',
+       url: getServiceURL() + '/v1/charges',
+       timeout: 4000,
+       data: {
+           'amount': amount,
+           'currency': 'usd',
+           'card': cardToken,
+           'description': 'one taxi ride'
+       },
+       dataType: 'json'
+    });
+    req.done(function(data) {
+        debugOut('doPayTest: success');
+       sendMQTT('payment_succeeded', {
+           'amount': amount,
+           'serviceURL': ccServiceURL,
+           'cardToken': cardToken,
+           'data': data
+           }
+       );
+    });
+    req.fail(function(jqXHR, textStatus) {
+        debugOut('doPayTest: failure:' + testStatus);
+       sendMQTT('payment_failed', {
+           'amount': amount,
+           'serviceURL': ccServiceURL,
+           'cardToken': cardToken,
+           'textStatus': textStatus
+           }
+       );
+    });
+}
+
+function getServiceURL() {
+    // return 'http://localhost:8080';
+    return 'http://134.134.213.146:8080';
+}
+
+</script>
+<style type="text/css">
+.button {
+    border: none;
+    cursor: pointer;
+    font-family: "Lato_Regular";
+    font-size: 30px;
+    padding: 7px;
+    margin: 10px;
+    width: 340px;
+    color: #ffffff;
+    background: #036;
+    height: 40px;
+    border-radius: 6px;
+    -webkit-text-shadow: 1px 1px 3px #919395;
+    text-shadow: 1px 1px 3px #919395;
+}
+</style>
+</head>
+<body class="bodyClass">
+<ul>
+    <li class="button clickable" funct="scenarioStart"> Scenario Start </li>
+    <li class="button clickable" funct="auth"> Authentication </li>
+    <li class="button clickable" funct="interm"> Connectivity Intermittent </li>
+    <li class="button clickable" funct="connect"> Connectivity Restored </li>
+    <li class="button clickable" funct="getin"> Passenger Enters </li>
+    <li class="button clickable" funct="getout"> Passenger Departing </li>
+    <li class="button clickable" funct="refreshHMI"> Clear Panels </li>
+    <li class="button clickable" funct="ccinit"> Reset Credit-card </li>
+    <!-- <li class="button clickable" funct="pay"> Pay test </li> -->
+</ul>
+<div id='outputBlock'>
+</div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<!---
+Each screen is 1366x768 (the tablets used)
+Original height for resized display area: 822x450
+0.45 mag fills my desk screen
+0.3 is smaller
+-->
+
+<head>
+    <meta charset="utf-8" />
+    <title> Buck Simulator </title>
+    <style>
+    body {
+        background: #fff;
+        margin: 0;
+        padding: 0;
+    }
+    #container {
+        background: #fff;
+        --totalWidth: calc(2740px + 1366px);
+        width: calc(4106px * 0.3);
+        --totalHeight: calc(800px + 1366px);
+        height: calc(2266px * 0.35);
+        overflow: hidden;
+        padding: 10px;
+    }
+    #fullsize {
+        width: 4098px;
+    }
+    #HMI {
+        margin-left: 150px;
+        -moz-transform: scale(0.35);
+        -moz-transform-origin: 0 0;
+        -o-transform: scale(0.35);
+        -o-transform-origin: 0 0;
+        -webkit-transform: scale(0.35);
+        -webkit-transform-origin: 0 0;
+    }
+    #HMI iframe {
+        float: left;
+        margin-right: 20px;
+    }
+    #admin {
+        float: left;
+        background-color: #fff;
+        -moz-transform: scale(0.6);
+        -moz-transform-origin: 0 0;
+        -o-transform: scale(0.6);
+        -o-transform-origin: 0 0;
+        -webkit-transform: scale(0.6);
+        -webkit-transform-origin: 0 0;
+    }
+    #lower {
+        clear: both;
+        padding-top: 20px;
+        margin-left: 200px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="fullsize">
+<!--             <div id="admin">
+                <iframe src="admin.html" border="0" width="350" height="1000" frameBorder="0">
+                </iframe>
+            </div> -->
+
+            <div id="HMI">
+
+                <iframe src="passenger.html" border="0" scrolling="no" width="1366" height="768" frameBorder="0"></iframe>
+
+                <iframe src="cc.html" border="0" scrolling="no" width="768" height="1366" frameBorder="0"></iframe>
+                <div id="upper">
+                    
+                    <iframe src="ip.html" border="0" scrolling="no" width="1366" height="768" frameborder="0"></iframe>
+                </div>
+                <div id="lower">
+                <iframe src="hud.html" border="0" scrolling="no" width="1366" height="768" frameBorder="0"></iframe>
+                    <!-- <iframe src="passenger.html" border="0" scrolling="no" width="1366" height="768" frameBorder="0"></iframe> -->
+                    <iframe src="phone.html" border="0" scrolling="no" width="768" height="1366" frameBorder="0"></iframe>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="hidden">
+        <iframe src="controller.html" border="0" scrolling="no" width="1" height="1" frameborder="0"></iframe>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="595.279px" height="841.891px" viewBox="0 0 595.279 841.891" enable-background="new 0 0 595.279 841.891"
+	 xml:space="preserve">
+<rect x="6" y="98.936" display="none" fill="#1A171B" stroke="#000000" stroke-miterlimit="10" width="595.279" height="628.468"/>
+<circle fill="none" stroke="#FFFFFF" stroke-width="13" stroke-miterlimit="10" cx="297.64" cy="420.945" r="278.894"/>
+<g display="none">
+	<path display="inline" fill="#FFFFFF" d="M300.551,581.374c-2.834-0.761-6.899-0.091-11.843,1.974
+		c-8.312,3.477-14.36,5.315-9.869,19.738C289.115,635.999,329.199,589.016,300.551,581.374z"/>
+	<path display="inline" fill="#FFFFFF" d="M355.81,545.854c-9.706,13.971-25.479,21.885-33.546,37.494
+		c7.352,9.924,2.127,24.148-1.975,33.547c18.063-2.979,37.947-4.147,55.259-7.887C376.898,580.024,372.398,556.9,355.81,545.854z"/>
+	<path display="inline" fill="#FFFFFF" d="M267.005,581.374c-11.02-12.667-22.862-24.511-35.53-35.521
+		c-12.848,14.116-20.228,33.71-17.765,63.154c16.461,4.591,37.376,4.727,55.268,7.887
+		C263.844,606.681,260.775,592.773,267.005,581.374z"/>
+	<path display="inline" fill="#FFFFFF" d="M347.914,534.011c-22.473-22.455-87.013-25.026-106.57,1.974
+		c13.907,10.431,22.871,25.814,39.468,33.547c9.571-5.669,23.207-3.522,31.582,1.974
+		C323.078,557.851,337.24,547.664,347.914,534.011z"/>
+	<path display="inline" fill="#FFFFFF" d="M426.86,494.533c-13.273-14.043-63.57-48.749-86.841-47.363
+		c-11.218,0.67-21.368,12.205-33.546,13.816c-25.262,3.351-38.029-3.413-59.207-13.816
+		c-68.922,18.598-139.628,77.46-108.544,167.751c28.032,9.308,69.655-0.915,71.05-27.625c0.788-15.185-11.916-18.607-11.843-31.582
+		c23.569-84.278,175.519-80.611,195.385,5.922c-36.463,28.946,11.553,69.058,53.284,55.259
+		C473.762,577.336,451.108,520.185,426.86,494.533z"/>
+	<path display="inline" fill="#FFFFFF" d="M328.185,437.301c76.401-32.044,67.501-155.337-17.765-173.673
+		c-10.53,0-21.051,0-31.582,0c-50.043,12.984-86.868,68.18-63.154,126.309C231.729,429.242,277.064,458.741,328.185,437.301z
+		 M324.284,364.213c5.648,0.324,15.49-2.818,15.49-2.818c-8.736,9.93-23.609,8.208-32.783-0.463
+		C305.015,359.062,318.634,363.889,324.284,364.213z M288.126,408.799c3.834,0,6.942,2.162,6.942,4.829s-3.108,4.829-6.942,4.829
+		c-3.833,0-6.941-2.162-6.941-4.829S284.293,408.799,288.126,408.799z M261.523,364.23c4.819,0.276,13.214-2.404,13.214-2.404
+		c-7.451,8.47-20.14,7.002-27.964-0.396C245.087,359.837,256.704,363.954,261.523,364.23z"/>
+</g>
+<text transform="matrix(1 0 0 1 435.7375 261.0283)" display="none" fill="#FFFFFF" font-family="'MyriadPro-Bold'" font-size="67.6364">Z</text>
+<text transform="matrix(1 0 0 1 395.4104 270.0273)" display="none" fill="#FFFFFF" font-family="'MyriadPro-Bold'" font-size="51.7183">Z</text>
+<text transform="matrix(1 0 0 1 362.0598 289.7529)" display="none" fill="#FFFFFF" font-family="'MyriadPro-Bold'" font-size="36.7319">Z</text>
+<text transform="matrix(1 0 0 1 88.594 343.3374)" display="none" fill="#FFFFFF" font-family="'MyriadPro-Regular'" font-size="132.0087">engage</text>
+<text transform="matrix(1 0 0 1 128.7004 610.3926)" fill="#FFFFFF" font-family="'MyriadPro-Bold'" font-size="291.2126">AP</text>
+<text transform="matrix(1 0 0 1 50.366 515.0488)" display="none" fill="#FFFFFF" font-family="'MyriadPro-Bold'" font-size="117.3084">AutoPilot</text>
+<text transform="matrix(1 0 0 1 52.1018 363.1743)" fill="#FFFFFF" font-family="'MyriadPro-Regular'" font-size="112.6905">disengage</text>
+</svg>

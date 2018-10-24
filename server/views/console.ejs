@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title><%= fullName %></title>
+    <link rel="stylesheet" href="./stylesheets/style.css"/>
+    <link rel="stylesheet" href="./stylesheets/taxiStyles.css"/>
+    <link rel="stylesheet" href="./stylesheets/demoStyle.css"/>
+
+    <script type="text/javascript" src="/javascripts/jquery.2.0.3.min.js"></script>
+    <script type="text/javascript" src="/javascripts/three.js"></script>
+    <script type="text/javascript" src="/javascripts/highcharts.js"></script>
+    <script type="text/javascript" src="/javascripts/CSS3DRenderer.js"></script>
+    <script type="text/javascript" src="/javascripts/ColladaLoader.js"></script>
+    <script type="text/javascript" src="/javascripts/panelLayout.js"></script>
+    <script type="text/javascript" src="/javascripts/socket.io.0.9.16.min.js"></script>
+    <script type="text/javascript" src="/javascripts/kinetic-v4.7.4.min.js"></script>
+    <script type="text/javascript" src="/javascripts/react.js"></script>
+    <script type="text/javascript" src="/javascripts/jsx.js"></script>
+
+    <script type="text/javascript" src="/javascripts/widgets/clearQuadrant.js"></script>
+    <script type="text/javascript" src="/javascripts/widgets/alertMessage.js"></script>
+    <script type="text/javascript" src="/javascripts/widgets/speedometer.js"></script>
+    <script type="text/javascript" src="/javascripts/widgets/hmiMessage.js"></script>
+    <script type="text/javascript" src="/javascripts/widgets/countdownTimer.js"></script>
+    <script type="text/javascript" src="/javascripts/widgets/clock.js"></script>
+    <script type="text/javascript" src="/javascripts/widgets/navmap.js"></script>
+    <script type="text/javascript" src="/javascripts/PMControls.js"></script>
+    <script type="text/javascript" src="/javascripts/widgets/passengerMap.js"></script>
+    <script type="text/javascript" src="/javascripts/widgets/tripDestination.js"></script>
+    <script type="text/javascript" src="/javascripts/widgets/displayImage.js"></script>
+    <script type="text/javascript" src="/javascripts/widgets/raiseEventTimer.js"></script>
+    <script type="text/javascript" src="/javascripts/widgets/carshareTermsAndConditions.js"></script>
+    <script type="text/javascript" src="/javascripts/widgets/speedoWithCountdown.js"></script>
+    <script type="text/javascript" src="/javascripts/widgets/halfMoodSpeedometer.js"></script>
+    <script type="text/javascript" src="/javascripts/widgets/email.js"></script>
+    <script type="text/javascript" src="/javascripts/widgets/timer.js"></script>
+    <script type="text/javascript" src="/javascripts/widgets/tripReport.js"></script>
+    <script type="text/javascript" src="/javascripts/widgets/phone.js"></script>
+    <script type="text/javascript" src="/javascripts/widgets/weather.js"></script>
+    <script type="text/javascript" src="/javascripts/widgets/timeToDestination.js"></script>
+
+    <script type="text/javascript" src="/javascripts/taxiWidgets/taxiInfoLib.js"></script>
+    <script type="text/javascript" src="/javascripts/taxiWidgets/activityLog.js"></script>
+    <script type="text/javascript" src="/javascripts/taxiWidgets/merchantServiceAcct.js"></script>
+    <script type="text/javascript" src="/javascripts/taxiWidgets/driverWelcome.js"></script>
+    <script type="text/javascript" src="/javascripts/taxiWidgets/driverAcctSelection.js"></script>
+    <script type="text/javascript" src="/javascripts/taxiWidgets/driverAcctOverview.js"></script>
+    <script type="text/javascript" src="/javascripts/taxiWidgets/driverAcctSelectPref.js"></script>
+    <script type="text/javascript" src="/javascripts/taxiWidgets/driverAcctPassenger.js"></script>
+    <script type="text/javascript" src="/javascripts/taxiWidgets/driverProfile.js"></script>
+    <script type="text/javascript" src="/javascripts/taxiWidgets/taxiConsoleMap.js"></script>
+    <script type="text/javascript" src="/javascripts/taxiWidgets/taxiMeterMeter.js"></script>
+    <script type="text/javascript" src="/javascripts/taxiWidgets/taxiMeterUpcoming.js"></script>
+    <script type="text/javascript" src="/javascripts/taxiWidgets/taxiPassengerMap.js"></script>
+    <script type="text/javascript" src="/javascripts/taxiWidgets/taxiPassengerPay.js"></script>
+    <script type="text/javascript" src="/javascripts/taxiWidgets/tripStatus.js"></script>
+    <script type="text/javascript" src="/javascripts/taxiWidgets/passWelcome.js"></script>
+    <script type="text/javascript" src="/javascripts/taxiWidgets/passMenu.js"></script>
+    <script type="text/javascript" src="/javascripts/taxiWidgets/passRouteSelection.js"></script>
+    <script type="text/javascript" src="/javascripts/taxiWidgets/passMediaSelection.js"></script>
+    <script type="text/javascript" src="/javascripts/taxiWidgets/passMedia.js"></script>
+    <script type="text/javascript" src="/javascripts/taxiWidgets/verifyDialog.js"></script>
+    <script type="text/javascript" src="/javascripts/taxiWidgets/sendMQTT.js"></script>
+
+    <script type="text/javascript" src="/javascripts/demoWidgets/controllers/controllers_1.js"></script>
+    <script type="text/javascript" src="/javascripts/demoWidgets/controllers/controllers_2.js"></script>
+    <script type="text/javascript" src="/javascripts/demoWidgets/controllers/controllers_3.js"></script>
+    <script type="text/javascript" src="/javascripts/demoWidgets/controllers/controllers_4.js"></script>
+    <script type="text/javascript" src="/javascripts/demoWidgets/controllers/controllers_5.js"></script>
+    <script type="text/javascript" src="/javascripts/demoWidgets/controllers/controllers_6.js"></script>
+    <script type="text/javascript" src="/javascripts/demoWidgets/controllers/controllers_7.js"></script>
+    <script type="text/javascript" src="/javascripts/demoWidgets/controllers/controllers_8.js"></script>
+    <script type="text/javascript" src="/javascripts/demoWidgets/controllers/controllers_9.js"></script>
+    <script type="text/javascript" src="/javascripts/demoWidgets/controllers/StateControllers.js"></script>
+
+    <script type="text/javascript" src="/javascripts/demoWidgets/templates/AuthenticatedUser.js"></script>
+
+    <script type="text/javascript">var mySocket = io.connect('http://' + window.location.host);</script>
+</head>
+<body class="<%= bodyClass %>">
+<div id="full" class="<%= divFullClass %>">
+    <div id="1" class="<%= div1Class %>"></div>
+    <div id="2" class="<%= div2Class %>"></div>
+    <div id="3" class="<%= div3Class %>"></div>
+</div>
+<div id="full-copy" style="display:none" class="<%= divFullClass %>">
+    <div id="1-copy" class="<%= div1Class %>"></div>
+    <div id="2-copy" class="<%= div2Class %>"></div>
+    <div id="3-copy" class="<%= div3Class %>"></div>
+</div>
+
+<div id="audioFiles"></div>
+
+
+</body>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#full-copy').hide();
+        initTouchEvents();
+
+        clearQuadrantWidget(mySocket, '<%= shortName %>');
+        hmiMessageWidget(mySocket, '<%= shortName %>');
+        alertMessageWidget(mySocket, '<%= shortName %>');
+        speedoWidget(mySocket, '<%= shortName %>');
+        countdownWidget(mySocket, '<%= shortName %>');
+        clockWidget(mySocket, '<%= shortName %>');
+        tripDestinationWidget(mySocket, '<%= shortName %>');
+        navMapWidget(mySocket, '<%= shortName %>');
+        passengerMapWidget(mySocket, '<%= shortName %>');
+        raiseEventTimerWidget(mySocket, '<%= shortName %>');
+        displayImageWidget(mySocket, '<%= shortName %>');
+        carshareTandCWidget(mySocket, '<%= shortName %>');
+        speedoWithCountdownWidget(mySocket, '<%= shortName %>');
+        initHalfMoonSpeedometerWidget(mySocket, '<%= shortName %>');
+        initTimerWidget(mySocket, '<%= shortName %>');
+        initEmailWidget(mySocket, '<%= shortName %>');
+        initPhoneWidget(mySocket, '<%= shortName %>');
+        tripReportWidget(mySocket, '<%= shortName %>');
+        initWeatherWidget(mySocket, '<%= shortName %>');
+        timeToDestinationWidget(mySocket, '<%= shortName %>');
+
+        merchantServiceAcctWidget(mySocket, '<%= shortName %>');
+        activityLogWidget(mySocket, '<%= shortName %>');
+        driverWelcomeWidget(mySocket, '<%= shortName %>');
+        driverAcctSelectionWidget(mySocket, '<%= shortName %>');
+        driverAcctOverviewWidget(mySocket, '<%= shortName %>');
+        driverAcctSelectPrefWidget(mySocket, '<%= shortName %>');
+        driverAcctPassengerWidget(mySocket, '<%= shortName %>');
+        driverProfileWidget(mySocket, '<%= shortName %>');
+        taxiConsoleMapWidget(mySocket, '<%= shortName %>');
+        taxiMeterMeterWidget(mySocket, '<%= shortName %>');
+        taxiMeterUpcomingWidget(mySocket, '<%= shortName %>');
+        taxiPassengerMapWidget(mySocket, '<%= shortName %>');
+        taxiPassengerPayWidget(mySocket, '<%= shortName %>');
+        tripStatusWidget(mySocket, '<%= shortName %>');
+        passengerWelcomeWidget(mySocket, '<%= shortName %>');
+        passengerMenuWidget(mySocket, '<%= shortName %>');
+        passengerRouteSelectionWidget(mySocket, '<%= shortName %>');
+        passengerMediaSelectionWidget(mySocket, '<%= shortName %>');
+        passengerMediaWidget(mySocket, '<%= shortName %>');
+        verifyDialogWidget(mySocket, '<%= shortName %>');
+        sendMQTTWidget(mySocket, '<%= shortName %>');
+
+        // console.log("Console Name:", '<%= shortName %>');
+
+        // let's use the center console as the host for our our primary state controllers
+        if ('<%= shortName %>' === 'CC') {
+            StateControllers(mySocket);
+        }
+
+        UserAuthenticationWidget(mySocket, '<%= shortName %>');
+
+        mySocket.emit('subscribe', { name: "refresh_console" });
+
+        //refresh event
+        mySocket.on("refresh_console", function(data){
+            window.location.reload();
+        });
+
+
+        mySocket.emit("getAudioFiles");
+    });
+
+    mySocket.on("audio_file_names", function(data){
+        var fileNames = JSON.parse(data);
+
+        $.each(fileNames, function(i, v){
+            var name = v.toString().substr(0, v.toString().indexOf('.'));
+            $("#audioFiles").append("<audio id='" + name + "' preload='auto' src='/audio/" + v + "'></audio>");
+        });
+    });
+
+
+    function touchHandler(event) {
+        var touch = event.changedTouches[0];
+        var simulatedEvent = document.createEvent("MouseEvent");
+
+        simulatedEvent.initMouseEvent({
+            touchstart: "mousedown",
+            touchmove: "mousemove",
+            touchend: "mouseup"
+        }[event.type], true, true, window, 1,
+                touch.screenX, touch.screenY,
+                touch.clientX, touch.clientY, false,
+                false, false, false, 0, null
+        );
+
+        touch.target.dispatchEvent(simulatedEvent);
+        event.preventDefault();
+    }
+
+    function initTouchEvents() {
+        document.addEventListener("touchstart", touchHandler, true);
+        document.addEventListener("touchmove", touchHandler, true);
+        document.addEventListener("touchend", touchHandler, true);
+        document.addEventListener("touchcancel", touchHandler, true);
+    }
+</script>
+</html>

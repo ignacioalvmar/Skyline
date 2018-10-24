@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Run Journey</title>
+        <link rel="stylesheet" href="/stylesheets/style.css"/>
+        <link rel="stylesheet" href="/stylesheets/jquery-ui-1.10.3.custom.css"/>
+        <link rel="stylesheet" href="/stylesheets/bootstrap.min.css"/>
+        <link rel="stylesheet" href="/stylesheets/bootstrap-theme.min.css"/>
+        <script type="text/javascript" src="/javascripts/jquery.2.0.3.js"></script>
+        <script type="text/javascript" src="/javascripts/jquery-ui-1.10.3.custom.min.js"></script>
+        <script type="text/javascript" src="/javascripts/socket.io.1.7.3.min.js"></script>
+        <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+    </head>
+
+    <body class="container">
+      <nav class="navbar navbar-fixed-top navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <a class="navbar-brand" href="index.html">Skyline Baseline</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Journeys <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="create.html">Create/Edit</a></li>
+                <li><a href="run.html">Run</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HMI Screens<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="overview.html" target="_blank">All Panes</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="cc.html" target="_blank">Center Console</a></li>
+                <li><a href="hud.html" target="_blank">HUD</a></li>
+                <li><a href="passenger.html" target="_blank">Passenger</a></li>
+                <li><a href="phone.html" target="_blank">Phone</a></li>
+                <li><a href="ip.html" target="_blank">Instrument Panel</a></li>
+              </ul>
+            </li>
+          </ul>
+
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+      </nav>
+        <h1 style = "color:#36C2F0; font-family:Arial, Helvetica, sans-serif; font-size:40px;"> Select Scenario to Run</h1>
+        <div id="selectedDrivePathName"></div>
+
+        <select id="scenarioFiles" onchange="loadScenario()">
+            <option></option>
+        </select>
+
+        <button type="button" class="btn pull-right" onclick="refreshHMI()">Refresh HMIs</button>
+
+        <ul id="listeners"></ul>
+        <br/>
+        <textarea id="logEvents" class="log-events"></textarea>
+        <br/><br/>
+        <button type="button" class="btn" onclick="appendLog()">Save Log</button>
+
+    </body>
+
+    <script type="text/javascript">
+        var socket = io.connect('http://' + window.location.host);
+
+        $(document).ready(function () {
+            socket.emit("getFileNames");
+        });
+
+        socket.on("scenario_file_names", function (data) {
+            var fileNames = JSON.parse(data);
+
+            $.each(fileNames, function (i, v) {
+                var name = v.toString().substr(0, v.toString().indexOf('.'));
+                $("#scenarioFiles")
+                    .append($("<option></option>")
+                        .attr("value", v)
+                        .text(name));
+            });
+        });
+
+        socket.on("file_saved", function (data){
+            alert(data);
+        });
+
+        socket.on("scenario_file_data", function (data) {
+            console.log(data);
+            var jsonData = JSON.parse(data);
+            $("#selectedDrivePathName").html("Drive Path: " + jsonData.drivePathName);
+            var ul = $("#listeners");
+            ul.empty();
+            $.each(jsonData.events, function (i, v) {
+                var li = $("<li class='collapsed' onclick='toggleLi(this)'>" + v.subscribeText + " - (View Details)</li>");
+                if (v.widgets.length > 0) {
+                    var wUl = $("<ul class='event-ul' id='" + v.subscribeEvent + "'></ul>");
+                    $.each(v.widgets, function(iw, vw) {
+                        var wLi = $("<li id='" + vw.event_name + "'>" + vw.event_text + " <a class='show-hide-data'>Show Data</a></li>");
+                        var eventData = "";
+                        $.each(vw, function(index, value) {
+                            eventData += index + ": " + value + "</br>";
+                        });
+
+                        var hiddenDiv = $("<div class='toggleDiv' style='display:none;'>" + eventData + "</div>");
+                        wLi.append(hiddenDiv);
+                        wUl.append(wLi);
+                    });
+                    li.append(wUl);
+                }
+                ul.append(li);
+                ul.append("<button type='button' class='btn' eventName='" + v.subscribeEvent +"' onclick='btnRunEvent(this)'>Run</button>");
+            });
+
+            $(".show-hide-data").on("click", function(event) {
+                event.stopPropagation();
+                $(this).parent().find('.toggleDiv').toggle();
+                if ($(this).text() == "Show Data") $(this).text("Hide Data");
+                else $(this).text("Show Data");
+            });
+        });
+
+        socket.on("scenario_event_published", function (data) {
+            var now = new Date();
+            var text = now.toLocaleDateString() + " " + now.toLocaleTimeString();
+            var log = $("#logEvents").val();
+            var textData = "";
+
+            var listner = $("#" + data.topic);
+            var event = listner.find("li[id='" + data.name +"']");
+            listner.addClass("panel panel-success");
+            listner.parent().addClass("text-danger");
+            event.addClass("panel-heading");
+
+            var eventData = data.message && data.message.length > 0?  JSON.parse(data.message): "";
+
+            $.each(data.data, function (i, v) {
+                if (eventData && eventData.hasOwnProperty(i)) {
+                    console.log(eventData[i]);
+                    textData += i + ":" + eventData[i] + " ";
+                } else {
+                    textData += i + ":" + v + " ";
+                }
+            });
+
+            text += ", " + data.topic + ", " + data.name + ", " + textData;
+            log += text + "\r\n";
+
+            $("#logEvents").val(log);
+        });
+
+
+        function refreshHMI() {
+            console.log("a");
+            socket.emit("refresh_console");
+        }
+
+        function appendLog() {
+            //log the event
+            socket.emit("save_log",{logData: $("#logEvents").val()});
+        }
+
+        function toggleLi(li) {
+            var $li = $(li);
+            if ($li.hasClass("expanded")) {
+                $li.removeClass("expanded");
+                $li.addClass('collapsed');
+            } else {
+                $li.removeClass("collapsed");
+                $li.addClass('expanded');
+            }
+        }
+
+        function btnRunEvent(item){
+
+            var eventId = $(item).attr('eventName');
+
+            var d = {};
+            var data = {
+                event_name: eventId,
+                data: d
+            };
+            socket.emit('subscriptionEventFromAdmin',data);
+        }
+
+        function loadScenario() {
+            var file = $("#scenarioFiles").val();
+            socket.emit("loadScenario", { fileName: file });
+        }
+    </script>
+
+</html>

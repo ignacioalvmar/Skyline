@@ -1,0 +1,985 @@
+﻿{
+  "ambulanceWidget": {
+    "name": "Ambulance Detection",
+    "availableDisplays": [
+      {
+        "display": "HUD",
+        "zones": [
+          1
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "displayName": "HUD Alert for Ambulance",
+        "name": "demo.hud_ambulance",
+        "data": {}
+      },
+      {
+        "name": "demo.pullover_proximity",
+        "displayName": "HUD Proximity Alert",
+        "data": {
+          "proximity": "Close",
+          "distance": 100
+        }
+      }
+    ]
+  },
+  "arrivalWidget": {
+    "name": "Destination Arrival",
+    "availableDisplays": [
+      {
+        "display": "CC",
+        "zones": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "displayName": "CC Show Dossier",
+        "name": "demo.show_dossier",
+        "data": {}
+      },
+      {
+        "name": "demo.notify",
+        "displayName": "HUD Arrival Message",
+        "data": {
+          "message_text": "You have arrived.",
+          "message_icons": "[]",
+          "primary_icons": "[{\"url\": \"/assets/images/Icon-Flag.svg\",\"iconClass\": \"icon\"}]",
+          "secondary_icons": "[]",
+          "use_mini_icons": false
+        }
+      },
+      {
+        "name": "demo.speech",
+        "displayName": "Arrival Speech",
+        "data": {
+          "keepMuted": true,
+          "text": "You have arrived at your destination."
+        }
+      }
+    ]
+  },
+  "carshareTermsAndConditionsWidget": {
+    "name": "Carshare Terms and Conditions",
+    "availableDisplays": [
+      {
+        "display": "CC",
+        "zones": [
+          1,
+          4
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.termsandconditions",
+        "data": {
+          "welcomeText": null,
+          "bodyText": null,
+          "termsAcceptedEvent": null,
+          "callOwnerEvent": null
+        }
+      }
+    ]
+  },
+  "clockWidget": {
+    "name": "Clock",
+    "availableDisplays": [
+      {
+        "display": "IP",
+        "zones": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.showClock",
+        "data": {}
+      }
+    ]
+  },
+  "dinnerReservationWidget": {
+    "name": "Dinner Reservations",
+    "availableDisplays": [
+      {
+        "display": "CC",
+        "zones": [
+          1
+        ]
+      },
+      {
+        "display": "HUD",
+        "zones": [
+          3
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "displayName": "Incoming Call",
+        "name": "demo.play_incoming_call_conversation",
+        "data": {}
+      },
+      {
+        "displayName": "HUD Dinner Step One",
+        "name": "demo.show_hud_dinner_first",
+        "data": {}
+      },
+      {
+        "name": "demo.show_hud_dinner_second",
+        "displayName": "HUD Dinner Step Two",
+        "data": {}
+      },
+      {
+        "name": "demo.show_hud_dinner_third",
+        "displayName": "HUD Dinner Step Three",
+        "data": {}
+      },
+      {
+        "name": "demo.show_hud_dinner_fourth",
+        "displayName": "HUD Dinner Step Four",
+        "data": {}
+      },
+      {
+        "name": "demo.show_hud_dinner_fifth",
+        "displayName": "HUD Dinner Step Five",
+        "data": {}
+      },
+      {
+        "name": "demo.show_dinner_step_one",
+        "displayName": "CC Dinner Step One",
+        "data": {}
+      },
+      {
+        "name": "demo.show_dinner_step_two",
+        "displayName": "CC Dinner Step Two",
+        "data": {}
+      },
+      {
+        "name": "demo.show_dinner_step_three",
+        "displayName": "CC Dinner Step Three",
+        "data": {}
+      }
+    ]
+  },
+  "displayImageWidget": {
+    "name": "Display Image",
+    "availableDisplays": [
+      {
+        "display": "CC",
+        "zones": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          "full"
+        ]
+      },
+      {
+        "display": "HUD",
+        "zones": [
+          1,
+          2,
+          3,
+          4,
+          "full"
+        ]
+      },
+      {
+        "display": "phone",
+        "zones": [
+          "full"
+        ]
+      },
+      {
+        "display": "PASS",
+        "zones": [
+          1,
+          "full"
+        ]
+      },
+      {
+        "display": "IP",
+        "zones": [
+          1,
+          2,
+          3,
+          4,
+          "full"
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.displayImage",
+        "data": {
+          "imageName": null,
+          "clickEvent": null,
+          "audioFile": null
+        }
+      }
+    ]
+  },
+  "displayNavMap": {
+    "name": "Display Nav Map",
+    "availableDisplays": [
+      {
+        "display": "CC",
+        "zones": [
+          1
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.display_nav_map",
+        "data": {
+          "route": "favorite"
+        }
+      }
+    ]
+  },
+  "displayRoute": {
+    "name": "Display Nav Route",
+    "availableDisplays": [
+      {
+        "display": "CC",
+        "zones": [
+          5
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.show_route",
+        "data": {
+          "icon": "Icon-Circle-Heart",
+          "route_name": "Favorite Route",
+          "expected_time": "14",
+          "eco_level": "8"
+        }
+      }
+    ]
+  },
+  "emailWidget": {
+    "name": "Email",
+    "availableDisplays": [
+      {
+        "display": "CC",
+        "zones": [
+          1,
+          4
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "displayEmail",
+        "data": {
+          "from": null,
+          "sentDate": null,
+          "subject": null,
+          "backgroundImage": null,
+          "isMeeting": null,
+          "body": null,
+          "attachmentIcon": null,
+          "audioFile": null,
+          "displayNow": null,
+          "hideAtMph": null
+        }
+      }
+    ]
+  },
+  "forgottenItemsWidget": {
+    "name": "Forgotten Items Widget",
+    "availableDisplays": [
+      {
+        "display": "IP",
+        "zones": [
+          1
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.show_important_items",
+        "data": {
+          "iconName": "Icon-Beacon-Wallet",
+          "copyText": "Locating...",
+          "itemClass": "icon-lg"
+        }
+      }
+    ]
+  },
+  "halfMoonSpeedoWidget": {
+    "name": "Half Moon Speedometer",
+    "availableDisplays": [
+      {
+        "display": "HUD",
+        "zones": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "initHalfMoonSpeedometer",
+        "data": {
+          "speedLimit": null,
+          "showCountDownTimer": "false"
+        }
+      }
+    ]
+  },
+  "hudMessageWidget": {
+    "name": "HUD Message",
+    "availableDisplays": [
+      {
+        "display": "HUD",
+        "zones": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.notify",
+        "data": {
+          "message_text": "HUD Message",
+          "message_icons": "[]",
+          "primary_icons": "[{\"url\": \"Icon-Flag.svg\",\"iconClass\": \"icon\"}]",
+          "secondary_icons": "[]",
+          "use_mini_icons": false,
+          "audioFile": "/assets/audio/"
+        }
+      }
+    ]
+  },
+  "initialMapWidget": {
+    "name": "Show Initial Map",
+    "availableDisplays": [
+      {
+        "display": "CC",
+        "zones": [
+          1
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.show_initial_map",
+        "data": {}
+      }
+    ]
+  },
+  "loadingWidget": {
+    "name": "Loading Circles",
+    "availableDisplays": [
+      {
+        "display": "CC",
+        "zones": [
+          1,
+          4
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.show_loading_circle",
+        "data": {}
+      }
+    ]
+  },
+  "navbarWidget": {
+    "name": "Bottom Navbar",
+    "availableDisplays": [
+      {
+        "display": "CC",
+        "zones": [
+          6
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.show_navbar",
+        "data": {
+          "slideOption": "show",
+          "navbarItems": ""
+        }
+      }
+    ]
+  },
+  "passengerDestinationWidget": {
+    "name": "Passenger Destination",
+    "availableDisplays": [
+      {
+        "display": "PASS",
+        "zones": [
+          1
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.show_passenger_destination",
+        "data": {
+          "eventOnTap": ""
+        }
+      }
+    ]
+  },
+  "passengerItemsWidgets": {
+    "name": "Passenger Forgotten Items Widget",
+    "availableDisplays": [
+      {
+        "display": "PASS",
+        "zones": [
+          1
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.show_passenger_items",
+        "data": {
+          "items": "[{\"icon\": \"Icon-Sunglasses\", \"itemClasses\": \"icon-sunglasses\" },{\"icon\": \"Icon-Medicine\", \"itemClasses\": \" \" }]",
+          "sharing": "[{\"icon\": \"Icon-Music-Library\", \"itemClasses\": \" \" },{\"icon\": \"Icon-Address-Book\", \"itemClasses\": \" \" },{\"icon\": \"Icon-Location\", \"itemClasses\": \" \" }]",
+          "connected": "[{\"icon\": \"avatar-passenger\", \"itemClasses\": \"avatar\", \"itemType\": \"jpg\" },{\"icon\": \"Icon-Mobile-Phone-Check\", \"itemClasses\": \"mobile-phone\", \"itemType\": \"svg\" }]",
+          "temp": 78
+        }
+      }
+    ]
+  },
+  "passengerMapWidget": {
+    "name": "Center Map From Passenger",
+    "availableDisplays": [
+      {
+        "display": "CC",
+        "zones": [
+          1
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.show_passenger_map",
+        "data": {}
+      }
+    ]
+  },
+  "passengerWelcomeWidget": {
+    "name": "Passenger Welcome",
+    "availableDisplays": [
+      {
+        "display": "PASS",
+        "zones": [
+          1
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.show_passenger_welcome",
+        "data": {
+          "onTapEvent": ""
+        }
+      }
+    ]
+  },
+  "phoneNotificationWidget": {
+    "name": "Phone Notification",
+    "availableDisplays": [
+      {
+        "display": "phone",
+        "zones": [
+          "full"
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.phone_notification",
+        "data": {
+          "imageUrl": "/assets/audio/Mobile-1.0-revised.png"
+        }
+      }
+    ]
+  },
+  "playConversation": {
+    "name": "Play Conversation/Call",
+    "availableDisplays": [
+      {
+        "display": "CC",
+        "zones": [
+          1
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.play_in_car_conversation",
+        "data": {
+          "file": "/assets/audio/conversation1.mp3"
+        }
+      }
+    ]
+  },
+  "raiseEventTimerWidget": {
+    "name": "Timed Event",
+    "availableDisplays": [
+      {
+        "display": "CC",
+        "zones": [
+          1
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.setTimer",
+        "data": {
+          "eventToFire": null,
+          "time": null
+        }
+      }
+    ]
+  },
+  "refreshHmis": {
+    "name": "Refresh HMIs",
+    "availableDisplays": [
+      {
+        "display": "CC",
+        "zones": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          "full"
+        ]
+      },
+      {
+        "display": "PASS",
+        "zones": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          "full"
+        ]
+      },
+      {
+        "display": "HUD",
+        "zones": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          "full"
+        ]
+      },
+      {
+        "display": "phone",
+        "zones": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          "full"
+        ]
+      },
+      {
+        "display": "IP",
+        "zones": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          "full"
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.reinitialize",
+        "displayName": "Clear Single Display",
+        "data": {}
+      },
+      {
+        "name": "demo.reinitialize_all",
+        "displayName": "Clear All Displays",
+        "data": {}
+      }
+    ]
+  },
+  "sendMQTT": {
+    "name": "Send MQTT message",
+    "availableDisplays": [
+      {
+        "display": "CC",
+        "zones": [
+          1
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.doSendMQTT",
+        "data": {
+          "topic": "event id",
+          "data": "{ \"payload\": \"json\"}"
+        }
+      }
+    ]
+  },
+  "showHudListening": {
+    "name": "Show HUD Listening",
+    "availableDisplays": [
+      {
+        "display": "HUD",
+        "zones": [
+          3
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.show_hud_listening",
+        "data": {}
+      }
+    ]
+  },
+  "showPassengerAuthentication": {
+    "name": "Show Passenger Authentication",
+    "availableDisplays": [
+      {
+        "display": "PASS",
+        "zones": [
+          1
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.show_passenger_authentication",
+        "data": {}
+      }
+    ]
+  },
+  "showPassengerReservations": {
+    "name": "Passenger Dinner Reservations",
+    "availableDisplays": [
+      {
+        "display": "PASS",
+        "zones": [
+          1
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "displayName": "Passenger Screen Listening",
+        "name": "demo.show_passenger_reservations_listening",
+        "data": {}
+      },
+      {
+        "name": "demo.show_passenger_reservations_initial",
+        "data": {}
+      },
+      {
+        "name": "demo.show_passenger_reservations_secondary",
+        "data": {}
+      },
+      {
+        "name": "demo.show_passenger_reservations_tertiary",
+        "data": {}
+      }
+    ]
+  },
+  "showPhoneBatteryWidget": {
+    "name": "Display Low Phone Battery",
+    "availableDisplays": [
+      {
+        "display": "CC",
+        "zones": [
+          1
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.show_phone_battery",
+        "data": {}
+      }
+    ]
+  },
+  "showRerouteOption": {
+    "name": "Show Re-Route Option",
+    "availableDisplays": [
+      {
+        "display": "CC",
+        "zones": [
+          5
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.show_reroute",
+        "data": {}
+      }
+    ]
+  },
+  "showSpotify": {
+    "name": "Show Spotify",
+    "availableDisplays": [
+      {
+        "display": "CC",
+        "zones": [
+          4
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.show_spotify",
+        "data": {}
+      },
+      {
+        "name": "demo.play_spotify",
+        "data": {}
+      }
+    ]
+  },
+  "speechWidget": {
+    "name": "Speech",
+    "availableDisplays": [
+      {
+        "display": "CC",
+        "zones": [
+          1
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.speech",
+        "data": {
+          "text": "",
+          "voice": "2"
+        }
+      }
+    ]
+  },
+  "speedoWidget": {
+    "name": "Speedometer",
+    "availableDisplays": [
+      {
+        "display": "IP",
+        "zones": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.initSpeedometer",
+        "data": {}
+      },
+      {
+        "name": "demo.removeSpeedometer",
+        "data": {}
+      },
+      {
+        "name": "demo.telemetryUpdate",
+        "data": {}
+      }
+    ]
+  },
+  "startCarWidget": {
+    "name": "Show Start Car Button",
+    "availableDisplays": [
+      {
+        "display": "CC",
+        "zones": [
+          7
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.show_start_car",
+        "data": {}
+      }
+    ]
+  },
+  "stopAudio": {
+    "name": "Stop Audio",
+    "availableDisplays": [
+      {
+        "display": "CC",
+        "zones": [
+          1
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.fade_audio_out",
+        "data": {}
+      }
+    ]
+  },
+  "timerWidget": {
+    "name": "Timer Widget",
+    "availableDisplays": [
+      {
+        "display": "IP",
+        "zones": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.initTimer",
+        "data": {
+          "units": "minutes",
+          "startTime": "3"
+        }
+      }
+    ]
+  },
+  "tripDistance": {
+    "name": "Trip Distance Widget",
+    "availableDisplays": [
+      {
+        "display": "IP",
+        "zones": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.showTripDistance",
+        "data": {
+          "distance": "3"
+        }
+      }
+    ]
+  },
+  "tripReportWidget": {
+    "name": "Trip Report",
+    "availableDisplays": [
+      {
+        "display": "CC",
+        "zones": [
+          1
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "showTripDetailReport",
+        "data": {
+          "averageMPG": 36,
+          "fuelEfficiencyText": "Less aggresive driving will lead to better fuel economy",
+          "avgSpeedText": "Thank you for obeying the speed limit",
+          "tripTimeText": "You get full marks as a borrower",
+          "fromDestination": "Park & Ride",
+          "toDestination": "Market Parking Lot",
+          "poorFuelMPG": 20,
+          "greatFuelMPG": 75,
+          "offsetMinutes": 30,
+          "poorTimePercent": 10,
+          "goodTimePercent": 5,
+          "poorSpeedPercent": 10,
+          "goodSpeedPercent": 8,
+          "logData": null
+        }
+      },
+      {
+        "name": "removeTripDetailReport",
+        "data": {}
+      }
+    ]
+  },
+  "userAuthenticationWidget": {
+    "name": "User Authentication",
+    "availableDisplays": [
+      {
+        "display": "CC",
+        "zones": [
+          5
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.show_authenticated_user",
+        "data": {
+          "users": "[{\"role\": \"driver\", \"temp\": 70, \"seat\": true}]"
+        }
+      }
+    ]
+  },
+  "weatherWidget": {
+    "name": "Weather",
+    "availableDisplays": [
+      {
+        "display": "IP",
+        "zones": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "subscriptions": [
+      {
+        "name": "demo.showWeather",
+        "data": {
+          "temperature": 75,
+          "message": "sunny",
+          "image": "sunny"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Skyline HMI</title>
+        <link rel="stylesheet" href="./stylesheets/style.css"/>
+        <link rel="stylesheet" href="./stylesheets/jquery-ui-1.10.3.custom.css"/>
+        <link rel="stylesheet" href="./stylesheets/bootstrap.min.css"/>
+        <link rel="stylesheet" href="./stylesheets/bootstrap-theme.min.css"/>
+        <script type="text/javascript" src="/javascripts/jquery.2.0.3.js"></script>
+        <script type="text/javascript" src="/javascripts/jquery-ui-1.10.3.custom.min.js"></script>
+        <script type="text/javascript" src="/javascripts/socket.io.1.7.3.min.js"></script>
+        <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/javascripts/senarioSetup.js"></script>
+    </head>
+
+    <body class="container">
+			<div class="page-header">
+			  <h1>Skyline HMI <small>Journey builder and server</small></h1>
+			</div>
+
+			<div class="row">
+        <div class="col-md-6">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h2 class="panel-title">Journey Runner</h2>
+            </div>
+            <div class="panel-body">
+              Select and run existing Journeys
+            </div>
+
+            <div class="list-group">
+              <a href="run.html" class="list-group-item">Run Journey</a>
+            </div>
+
+          </div>
+        </div>
+          <div class="col-md-6">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <h2 class="panel-title">Journey Builder</h2>
+              </div>
+              <div class="panel-body">
+                Edit or create new Journeys
+              </div>
+
+              <div class="list-group">
+                <a href="create.html" class="list-group-item">Create/Edit Journey</a>
+              </div>
+
+            </div>
+
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-md-6">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h2 class="panel-title">HMI Preview Panes</h2>
+            </div>
+            <div class="panel-body">
+              Preview the HMI panes as you drive or test your journeys
+            </div>
+            <div class="list-group">
+      				<a href="overview.html" target="_blank" class="list-group-item">All Panes</a>
+      				<a href="cc.html" target="_blank"  class="list-group-item">Center Console</a>
+      				<a href="hud.html" target="_blank"  class="list-group-item">HUD</a>
+      				<a href="passenger.html" target="_blank"  class="list-group-item">Passenger</a>
+      				<a href="phone.html" target="_blank"  class="list-group-item">Phone</a>
+      				<a href="ip.html" target="_blank"  class="list-group-item">Instrument Panel</a>
+      			</div>
+        </div>
+      </div>
+    </div>
+			<p><a href="#">View complete documentation</a></p>
+    </body>
+
+</html>

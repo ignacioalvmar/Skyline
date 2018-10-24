@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Create Journey</title>
+        <link rel="stylesheet" href="/stylesheets/style.css"/>
+        <link rel="stylesheet" href="/stylesheets/jquery-ui-1.10.3.custom.css"/>
+        <link rel="stylesheet" href="/stylesheets/bootstrap.min.css"/>
+        <link rel="stylesheet" href="/stylesheets/bootstrap-theme.min.css"/>
+        <script type="text/javascript" src="/javascripts/jquery.2.0.3.js"></script>
+        <script type="text/javascript" src="/javascripts/jquery-ui-1.10.3.custom.min.js"></script>
+        <script type="text/javascript" src="/javascripts/socket.io.1.7.3.min.js"></script>
+        <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/javascripts/senarioSetup.js"></script>
+    </head>
+
+    <body class="container">
+      <nav class="navbar navbar-fixed-top navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <a class="navbar-brand" href="index.html">Skyline Baseline</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Journeys <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="create.html">Create/Edit</a></li>
+                <li><a href="run.html">Run</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HMI Screens<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="overview.html" target="_blank">All Panes</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="cc.html" target="_blank">Center Console</a></li>
+                <li><a href="hud.html" target="_blank">HUD</a></li>
+                <li><a href="passenger.html" target="_blank">Passenger</a></li>
+                <li><a href="phone.html" target="_blank">Phone</a></li>
+                <li><a href="ip.html" target="_blank">Instrument Panel</a></li>
+              </ul>
+            </li>
+          </ul>
+
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+      </nav>
+        <div id="scenarioEditor">
+            <div class="form-group">
+                <div class="col-lg-1">
+                    <button class="btn" type="button" onclick="clearPage()">New</button>
+                </div>
+                <div class="col-lg-5">
+                    <label class="pull-right" for="scenarioFiles">Load existing Journey File</label>
+                </div>
+                <div class="col-lg-4">
+                    <select id="scenarioFiles" class="form-control"></select>
+                </div>
+                <div class="col-lg-2">
+                    <button class="btn" onclick="loadScenario(true)" type="button">Load</button>
+                    <button class="btn pull-right" onclick="loadScenario(false)" type="button">Append</button>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-group">
+                <div class="col-lg-10">
+                    <label>Journey Name (this will be used as the file name)</label>
+                    <input class="form-control" id="scenarioName" type="text"/>
+                </div>
+                <div class="col-lg-2">
+                    <button class="btn btn-primary mqtt-events-btn pull-right" type="button" onclick="saveScenario()">Save Journey</button>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-group">
+                <div class="col-lg-4">
+                    <label>Select Your Drive Path</label>
+                    <select class="form-control drivepath-select"><option></option></select>
+                </div>
+                <div class="col-lg-5">
+                    <label>Select Unity Trigger to Listen For</label>
+                    <select class="form-control mqtt-select"><option></option></select>
+                </div>
+                <div class="col-lg-3">
+                    <button class="btn btn-primary mqtt-events-btn" type="button" onclick="appendListener(this)">Add Event</button>
+                    <button class="btn btn-primary mqtt-events-btn pull-right" type="button" onclick="appendNewListener(this)" >Add Custom Event</button>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div style="padding-left: 60px;">
+                <button class="btn btn-primary mqtt-events-btn"  type="button" onclick="collapseAll()">Toggle All</button>
+            </div>
+
+            <ul id="mqttEvents"></ul>
+        </div>
+    </body>
+
+    <script type="text/javascript">
+        var socket = io.connect('http://' +  window.location.host);
+        var initScenario;
+
+        $(document).ready(function () {
+            initScenario = initScenario(socket, $("#scenarioEditor"));
+            $("#mqttEvents").sortable();
+            socket.emit("getFileNames");
+        });
+
+        socket.on("scenario_file_names", function (data) {
+            var fileNames = JSON.parse(data);
+
+            $.each(fileNames, function (i, v) {
+                var name = v.toString().substr(0, v.toString().indexOf('.'));
+                $("#scenarioFiles")
+                    .append($("<option></option>")
+                        .attr("value", v)
+                        .text(name));
+            });
+        });
+
+        socket.on("file_saved", function (data){
+           alert(data);
+        });
+
+        function appendListener(button) {
+
+            var select = $(button).parent().parent().find(".mqtt-select").first();
+            var eventIndex = select.val();
+            var eventText = select.children(':selected').text();
+            initScenario.appendListener($("#mqttEvents"), eventIndex, eventText);
+        }
+
+        function appendNewListener(button) {
+            initScenario.appendListener($("#mqttEvents"), null, null, true);
+        }
+
+        function displayEvents(select) {
+            var index = $(select).val();
+            var ae = $(select).parent().parent().parent().find(".availableEvents").first();
+            initScenario.displayEvents(ae, index);
+        }
+
+        function appendData(button) {
+            var parentLi = $(button).parent().parent();
+            var widgetIndex = parentLi.find(".availableWidgets").first().val();
+            //var widgetEvent = parentLi.find(".availableEvents").first().children(':selected').text();
+            var widgetEvent = parentLi.find(".availableEvents").first().children(':selected').val();
+            initScenario.appendData(parentLi, widgetIndex, widgetEvent);
+        }
+
+        function sendMessage(button) {
+            initScenario.sendMessage(button);
+        }
+        function updateAvailableZones(item){
+            var selectedDisplay = item.selectedIndex;
+            var widgetIndex = item.getAttribute('widgetIndex');
+            
+            var zones = initScenario.getAvailableZones(widgetIndex, selectedDisplay);
+            console.log(zones);
+            var dropdown = $(item).nextAll("select:first");
+            $(dropdown).empty();
+            $.each(zones, function(i, v) {
+                dropdown.append(
+                    $('<option></option>').val(v).html(v)
+                );
+            });
+        }
+        function showSelectedZone(item){ 
+            var dropdown = $(item).parent().find("select:first");
+            var selectedDisplay = $(dropdown).val();
+            var dropdownTwo = $(item).nextAll("select:first");
+            var selectedZone = $(dropdownTwo).val();
+            var imageDiv = $(item).parent().parent().prevAll(".zoneImage:first");
+            if(selectedDisplay == "CC"){
+                imageDiv.html("<img src='/assets/images/zones/center-console-zone" + selectedZone + ".png'>");
+            }else if(selectedDisplay == "HUD"){
+                imageDiv.html("<img src='/assets/images/zones/hud-zone" + selectedZone + ".png'>");
+            }else if(selectedDisplay == "IP"){
+                imageDiv.html("<img src='/assets/images/zones/ip-zone" + selectedZone + ".png'>");
+            }else if(selectedDisplay == "PASS"){
+                imageDiv.html("<img src='/assets/images/zones/passenger-zone" + selectedZone + ".png'>");
+            }else if(selectedDisplay == "phone"){
+                imageDiv.html("<img src='/assets/images/zones/phone-" + selectedZone + ".png'>");
+            }
+            $(item).hide();
+            var hideButton = $(item).nextAll("button:first");
+            $(hideButton).show();
+        }
+
+        function hideSelectedZone(item){
+            var imageDiv = $(item).parent().parent().prevAll(".zoneImage:first");
+            imageDiv.html("");
+            $(item).hide();
+            var showButton = $(item).prevAll("button:first");
+            $(showButton).show();
+        }
+
+        function clearPage() {
+            $("#mqttEvents").empty();
+            $("#scenarioName").val('');
+        }
+
+        function saveScenario() {
+            initScenario.saveScenario();
+        }
+
+        function removeEvent(button) {
+            initScenario.removeEvent(button);
+        }
+
+        function collapseEvent(link) {
+            initScenario.collapseEvent(link);
+        };
+
+        function removeListenerEvent(element) {
+            initScenario.removeListenerEvent($(element));
+        }
+
+        function loadScenario(isAppend) {
+            if (isAppend) $("#mqttEvents").empty();
+            var fileName = $("#scenarioFiles").val();
+            //initScenario.loadScenario(fileName);
+            initScenario.loadCreatedScenario(fileName);
+        }
+
+        function collapseAll() {
+            var collapse = $(".collapse-event");
+            $.each(collapse, function (i, v) {
+                initScenario.collapseEvent(v);
+            });
+        }
+
+        function runAll(button) {
+            var parent = $(button).parent().parent();
+            var li = parent.find('.event');
+
+            $.each(li, function (i, v) {
+                var btn = $(v).find('.run-event-button')[0];
+                initScenario.sendMessage(btn);
+            });
+
+        }
+    </script>
+
+</html>

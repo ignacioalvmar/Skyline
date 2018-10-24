@@ -1,0 +1,20 @@
+{
+  "name": "intel-baseline",
+  "version": "0.2.0",
+  "description": "this runs the server and various views required to run the Intel Skyline simulator",
+  "main": "server/app.js",
+  "scripts": {
+    "install": "cd C:\\Users\\%username%\\skyline\\skyline\\server && npm install && cd C:\\Users\\%username%\\skyline\\skyline\\client && npm install && lineman clean build && mklink /D C:\\Users\\%username%\\skyline\\skyline\\server\\public C:\\Users\\%username%\\skyline\\skyline\\client\\generated",
+    "start": "node server/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git-ger-6.devtools.intel.com/gerrit/p/il_uxr_skyline-baseline.git"
+  },
+  "author": "@ignacioj",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://securewiki.ith.intel.com/display/SPL/Skyline"
+  },
+  "homepage": "https://securewiki.ith.intel.com/display/SPL/Skyline"
+}

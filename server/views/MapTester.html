@@ -1,0 +1,26 @@
+﻿<html>
+    <head>
+        <title>this is for testing the passenger map</title>
+        <script src="/javascripts/jquery.2.0.3.min.js"></script>
+        <script src='/javascripts/three.js'></script>
+        <script src='/javascripts/CSS3DRenderer.js'></script>
+        <script src="/javascripts/ColladaLoader.js"></script>
+        <script src='/javascripts/widgets/TestPassengerMap.js'></script>
+        <script src='/javascripts/PMControls.js'></script>
+        <link rel="stylesheet" href="./stylesheets/style.css"/>
+        <style>
+            #passMap{ height: 768px;width:768px}
+        </style>
+    </head>
+    <body>
+        <div id="passMap"></div>
+
+    </body>
+    <script>
+        var map = passengerMapWidget('passMap');
+
+        map.init();
+
+        map.displayPassengerMap();
+    </script>
+</html>

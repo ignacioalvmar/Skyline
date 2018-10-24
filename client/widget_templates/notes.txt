@@ -1,0 +1,108 @@
+1) Will presenter have the ability to trigger new screens (via smartphone or something?)
+
+// 2.1
+
+- Animate seat for passenger? (in january).
+
+DONE - 68* in X seconds? Trigger 2.2 from the end of that countdown?
+
+// 2.2
+
+DONE - pull out sonar ping image from 2.2, that should show up on 2.3
+
+DONE - pause X, then automatically transition to 2.3
+
+// 2.3
+
+DONE - When the voice ends, show the map.
+**** This isn't sync'd to the voice ending, the map comes up as she says she's pulling up a map but it's on a timer.
+
+// 2.4
+
+// 3.0
+  - this should be triggered manually
+  - Map stuff. This may be hard. But we declare it to be easy.
+
+// 3.1
+  - triggered by red light from unity.
+  - "playing in" should be floating to the right
+  - Timer should sync to green light, then trigger 3.2 at 0
+
+// 3.2
+  - Mark to create new layout (MYK: I created this new view which works in the widgets-templates directory. Reference "3.2 new." I ported it into the SpotifyWidget file but it didn't look the same. Not sure what's happening there. Also, we'll need the map in this view. And together they now become the regular driving view.)
+  - HUD should clear
+  - Do we want to build a real media player?
+
+< just cruising with music playing and map open >
+
+  DONE except for position of hit area - eventually hit invisible hit area then pull over to drop off passenger, when you stop it triggers 4.0
+
+// 4.0
+  - progress bar is on a timer, closes window when ends
+  - any click anywhere also closes window
+  - when this closes, go back to map/media player (3.2)
+
+< cruising with music again >
+
+  DONE except for position of hit area - hit invisible hit area to trigger 5.0
+
+// 5.0
+  - tap economic route button, map updates?
+  - back to map/music
+
+< cruising with music >
+
+  - green light section, until invisible hit area which triggers 6.0
+
+// 6.0
+  - fades out audio
+  - CC timer is quick, then returns to map view (3-4 seconds?)
+  - HUD timer then transition to 6.1
+
+// 6.1
+  - overhauled, series of triggers, etc.
+  - ambulance goes by
+  - music comes back on, return to 3.2
+  - hit invisible hit area and trigger event for 7.0
+
+// 7.0
+  - modal to answer phone call? (Myk: No go on this. I forgot that the reason we didn't have a GUI element for this is because the steering wheel has buttons that would answer/hangup the call. So, if we can't tap into those buttons we'll need to build in a trigger for the admin on the smartphone.)
+  - triggers 7.1
+
+
+< --- ON THE PHONE, missing step NEW 7.1 --- >
+// 7.1
+  - answer the call, she gives you the options
+
+
+// 7.2 (was 7.1)
+  - mark take a look at HUD issue (Myk: This is layout issue is because the calendar is rendering in the wrong zone. It should reside in z2 of the HUD.)
+  - driver answers "Yeah let's do wednesday"
+  - driver hangs up (need modal view for this)
+  - transition to 7.3
+
+// 7.3 (was 7.2)
+  - can time itself out after X seconds
+
+< back to driving mode w/ music >
+
+  - once you arrive at destination, trigger 8.0
+
+// 8.0
+  - layout issues (Myk: This is done. You had a class in the primary box that shoudln't have been there. Super easy.)
+  - as timer counts down, eventually it hits 'warning' mode, triggers 8.1
+  - add button to admin view to accelerate timer to 1 minute left (warning mode)
+
+// 8.1
+  - myk fix dramatic timer (warning mode, see widget templates)
+  - button should work to trigger 9.0
+
+// 9.0
+  - clear all car widgets
+
+
+
+// Ignacio/Mark Conversation
+
+- Add rain/time to umbrella icon in missing-item checklist
+- Add timer bar to shared media (3.1)

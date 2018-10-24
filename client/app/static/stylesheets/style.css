@@ -1,0 +1,86 @@
+﻿body {
+   background-color: #ffffff;
+   padding-top: 70px;
+}
+
+.container {
+    width: 960px;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.events, #mqttEvents{
+    list-style: none;
+    background-color: #ffffff;
+}
+
+#mqttEvents li{
+    background-color: #ffffff;
+}
+
+.mqtt-events-btn {
+    margin-top: 20px;
+}
+
+.event, .mqtt-event{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    width: 90%;
+    border: #2b669a solid 1.5px;
+    padding: 10px;
+    -ms-border-radius: 3px 3px 3px 3px;
+    border-radius: 3px 3px 3px 3px;
+}
+
+.event h4 {
+    text-align: center;
+}
+
+.collapsible {
+    width: 100%;
+}
+
+.collapsible a {
+    float: right;
+}
+
+.collapse-event {
+    margin-left: -40px;
+}
+
+
+.highlight {
+    border: 1px solid #8b0000 !important;
+}
+
+.toggleDiv {
+    margin-left: 20px;
+}
+
+.expanded {
+    list-style-image: url("/images/expanded.png");
+    cursor: pointer;
+}
+
+.expanded ul {
+    display: block;
+}
+
+.collapsed {
+    list-style-image: url("/images/collapsed.png");
+    cursor: pointer;
+}
+
+.collapsed ul {
+    display: none;
+}
+
+.event-ul {
+    list-style: none;
+}
+
+.log-events {
+    width: 80%;
+    height: 350px;
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="chrome=1" http-equiv="X-UA-Compatible" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Center Console</title>
+    <link rel="stylesheet" type="text/css" href="css/app.css" media="all" />
+
+  </head>
+  <body class="iframe">
+    <section class="box console" id="full">
+      <section class="zone z1" id="1"></section>
+      <section class="zone z2" id="2"></section>
+      <section class="zone z3" id="3"></section>
+      <section class="zone z4" id="4"></section>
+      <section class="zone z2-z3" id="5"></section>
+      <section class="zone z5" id="6"></section>
+      <section class="zone z6" id="7"></section>
+    </section>
+
+    <div id="audioFiles"></div>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="/javascripts/highcharts.min.js"></script>
+    <script type="text/javascript">
+      $(document).on('ready', init.bind(document, 'CC'));
+	  //find out real browser resolution
+      //document.title = window.innerHeight + ' ' + window.innerWidth;
+    </script>
+  </body>
+</html>

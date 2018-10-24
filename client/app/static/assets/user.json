@@ -1,0 +1,41 @@
+{
+  "103": {
+    "userid": 103,
+    "name": "Ignacio",
+    "image": "C:\\Users\\Skyline\\skyline\\il_uxr_skyline-baseline\\client\\generated\\assets\\images\\103_user_image.jpg",
+    "preferences": {
+      "music": true,
+      "phone": true,
+      "addressBook": true,
+      "location": false,
+      "calendar": true,
+      "temperature": 70.0
+    }
+  },
+  "104": {
+    "userid": 104,
+    "name": "David",
+    "image": "C:\\Users\\Skyline\\skyline\\il_uxr_skyline-baseline\\client\\generated\\assets\\images\\104_user_image.jpg",
+    "preferences": {
+      "music": true,
+      "phone": true,
+      "addressBook": true,
+      "location": true,
+      "calendar": false,
+      "temperature": 60.0
+    }
+  },
+  "105": {
+    "userid": 105,
+    "name": "David",
+    "image": "C:\\Users\\Skyline\\skyline\\il_uxr_skyline-baseline\\client\\generated\\assets\\images\\105_user_image.jpg",
+    "preferences": {
+      "music": true,
+      "phone": true,
+      "addressBook": true,
+      "location": true,
+      "calendar": false,
+      "temperature": 70.0
+    }
+  }
+}
