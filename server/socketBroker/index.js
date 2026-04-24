@@ -27,7 +27,7 @@
          socket.on('consoleEvent', function(data) {
                 
              var stringData = data.message ? JSON.stringify(data.message) : '';
-             console.log('socketBroker: publish to MQTT ' + data.eventName + '->' + stringData)
+             console.log('socketBroker: publish to RabbitMQ ' + data.eventName + '->' + stringData)
              mqttClient.publish(data.eventName, stringData == '' ? null : stringData);
          });
      };
