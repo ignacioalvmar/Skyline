@@ -66,12 +66,12 @@ $(document).ready(function() {
 
 // Reset the user interface
 function setResetHMI() {
-    sendMQTT('refresh_console', {});
+    sendEvent('refresh_console', {});
 }
 
 // Set scenario Start state
 function setScenarioStart() {
-    sendMQTT('scenario_start', {});
+    sendEvent('scenario_start', {});
     window.setTimeout(function() {
         sendServiceState('remote', 'Available');
     }, 2000);
@@ -79,7 +79,7 @@ function setScenarioStart() {
 
 // Set authenticated
 function setAuthenticatedState() {
-    sendMQTT('ImmobKey', {});
+    sendEvent('ImmobKey', {});
 }
 
 // Initial state:
@@ -101,7 +101,7 @@ function setInitialState() {
 //  UI goes to driving (after ignition)
 function setResetCCState() {
     $('#outputBlock').empty();
-    sendMQTT('Ignition', {});
+    sendEvent('Ignition', {});
 }
 
 // Intermittant connectivity:
@@ -111,7 +111,7 @@ function setResetCCState() {
 //  Make local CCP online
 function setIntermittentConnectivity() {
     debugOut('Intermittent connectivity');
-    sendMQTT('car/connectivity', 'Intermittent');
+    sendEvent('car/connectivity', 'Intermittent');
     sendServiceState('remote', 'Intermittent');
     window.setTimeout(function() {
         debugOut('Loading local credit-card processing service');
@@ -122,7 +122,7 @@ function setIntermittentConnectivity() {
             sendServiceState('local', 'Available');
             debugOut('Credit card processing local');
             setGlobalState('CardProcessor', 'local');
-            sendMQTT('car/connectivity', 'Disconnected');
+            sendEvent('car/connectivity', 'Disconnected');
         }, 2000 + randomInterval(200, 1000));
     }, 2000 + randomInterval(200, 1000));
 }
@@ -131,7 +131,7 @@ function setIntermittentConnectivity() {
 //  Display passenger selection on passenger screen
 function setPassengerEnter() {
     debugOut('PassengerEntry');
-    sendMQTT('passenger_enters', {});
+    sendEvent('passenger_enters', {});
 }
 
 // Passenger exits car:
@@ -140,7 +140,7 @@ function setPassengerEnter() {
 //      (Should have state so both local and remote work?)
 function setPassengerExit() {
     debugOut('PassengerExit');
-    sendMQTT('passenger_payment', {});
+    sendEvent('passenger_payment', {});
 }
 
 // Connectivity restored:
@@ -149,7 +149,7 @@ function setPassengerExit() {
 function setConnected() {
     debugOut('Connectivity restored');
     debugOut('Remote credit-card processing available');
-    sendMQTT('car/connectivity', 'Connected');
+    sendEvent('car/connectivity', 'Connected');
     sendServiceState('remote', 'Available');
     setGlobalState('CardProcessor', 'remote');
     window.setTimeout(function() {
@@ -174,16 +174,16 @@ function sendServiceState(service, state) {
     else
         topic = 'service/payment';
 
-    sendMQTT(topic, msg);
+    sendEvent(topic, msg);
 }
 
 function setGlobalState(key, value) {
     var msg = {};
     msg[key] = value;
-    sendMQTT('car/state/set', msg);
+    sendEvent('car/state/set', msg);
 }
 
-function sendMQTT(topic, msg) {
+function sendEvent(topic, msg) {
     var event = {};
     event['eventName'] = topic;
     event['message'] = msg;
@@ -216,7 +216,7 @@ function doPayTest() {
     });
     req.done(function(data) {
         debugOut('doPayTest: success');
-       sendMQTT('payment_succeeded', {
+       sendEvent('payment_succeeded', {
            'amount': amount,
            'serviceURL': ccServiceURL,
            'cardToken': cardToken,
@@ -226,7 +226,7 @@ function doPayTest() {
     });
     req.fail(function(jqXHR, textStatus) {
         debugOut('doPayTest: failure:' + testStatus);
-       sendMQTT('payment_failed', {
+       sendEvent('payment_failed', {
            'amount': amount,
            'serviceURL': ccServiceURL,
            'cardToken': cardToken,

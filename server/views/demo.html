@@ -28,7 +28,7 @@ $(document).ready(function() {
         var funct = $(this).attr('funct');
         if (funct) {
             console.log("dispatching message:", funct);
-            sendMQTT("demo." + funct, {});
+            sendEvent("demo." + funct, {});
             highlight_state(funct);
         }
     });
@@ -56,16 +56,16 @@ function sendServiceState(service, state) {
     else
         topic = 'service/payment';
 
-    sendMQTT(topic, msg);
+    sendEvent(topic, msg);
 }
 
 function setGlobalState(key, value) {
     var msg = {};
     msg[key] = value;
-    sendMQTT('car/state/set', msg);
+    sendEvent('car/state/set', msg);
 }
 
-function sendMQTT(topic, msg) {
+function sendEvent(topic, msg) {
     var event = {};
     event['eventName'] = topic;
     event['message'] = msg;

@@ -653,8 +653,8 @@
       }
     ]
   },
-  "sendMQTT": {
-    "name": "Send MQTT message",
+  "sendEvent": {
+    "name": "Send event message",
     "availableDisplays": [
       {
         "display": "CC",
@@ -679,7 +679,7 @@
     ],
     "subscriptions": [
         {
-            "name": "demo.doSendMQTT",
+            "name": "demo.doPublish",
             "data": {
               "topic": "event id",
               "data": "{ \"payload\": \"json\"}"
@@ -704,8 +704,8 @@
         }
     ]
   },
-  "listenMQTT": {
-    "name": "Listen MQTT message",
+  "listenEvent": {
+    "name": "Listen event message",
     "availableDisplays": [
       {
         "display": "CC",
@@ -737,7 +737,7 @@
     ],
     "subscriptions": [
       {
-        "name": "demo.listenMQTT",
+        "name": "demo.listenEvent",
         "data": {
           "listenTopic": null,
           "triggerTopic": null

@@ -8,7 +8,7 @@ var path        = require('path');
 var ejs         = require('ejs');
 var fs          = require('fs');
 var io          = require ('socket.io');
-var client      = require('mqtt').connect({host:'localhost', port:1883});
+var client      = require('./rabbitClient').connect({host:'localhost', port:5672});
 
 var exp = express();
 
@@ -25,10 +25,10 @@ app.listen(exp.get('port'), function(){
 //CLIENT SOCKET MANAGER
 var socketListner = io.listen(app);
 
-//DISTRIBUTES MESSAGES FROM MQTT TO CONSOLES
-var mqttBroker = require('./mqttBroker')(client);
+//DISTRIBUTES MESSAGES FROM RABBITMQ TO CONSOLES
+var mqttBroker = require('./rabbitBroker')(client);
 
-// RELAYS EVENTS FROM CONSOLES TO MQTT
+// RELAYS EVENTS FROM CONSOLES TO RABBITMQ
 var socketBroker = require('./socketBroker')(client);
 
 // KEEPS AND DISTRIBUTES GLOBAL STATE KEY/VALUE PAIRS
@@ -57,7 +57,7 @@ socketListner.sockets.on('connection', function(socket) {
         });
     });
 
-    socket.on("doSendMQTT", function(data){
+    socket.on("doPublish", function(data){
 
         client.publish(data.topic, data.data);
     });

@@ -19,7 +19,7 @@ module.exports = function (mqttClient) {
     var dataset = {};
 
     mqttClient.on('connect', function(){
-		console.log("Car state: MQTT connected");
+		console.log("Car state: RabbitMQ connected");
 		mqttClient.on('message', broker);
 
         mqttClient.subscribe("car/state/set");
